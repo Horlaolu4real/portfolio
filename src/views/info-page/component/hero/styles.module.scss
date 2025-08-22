@@ -1,0 +1,71 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  .wrapped {
+    background-image: url("/Hero-portfolio.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 850px;
+    .overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.317);
+      .txt {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        height: auto;
+        width: auto;
+
+        @media (max-width: 1024px) {
+          // left: 15%;
+        }
+        @media (max-width: 1200px) {
+          // left: 10%;
+        }
+
+        @media (max-width: 768px) {
+          // left: 22%;
+        }
+        @media (max-width: 468px) {
+          // left: 20%;
+        }
+        h1 {
+          font-family: Poppins;
+          font-weight: 700;
+          color: #ffffffbf;
+          font-size: 1.25rem;
+          text-align: center;
+          @media (max-width: 768px) {
+            font-size: 1rem;
+          }
+          @media (max-width: 468px) {
+            font-size: 0.88rem;
+          }
+        }
+        p {
+          font-family: MAINLUX-Bold;
+          font-weight: 700;
+          color: #ffffffc4;
+          // font-size: 6rem;
+          font-size: clamp(2.4rem, 6vw, 6rem);
+          @media (max-width: 468px) {
+            font-size: 2rem;
+          }
+        }
+      }
+    }
+  }
+}
