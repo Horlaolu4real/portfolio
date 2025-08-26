@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./styles.module.scss";
 import Hero from "./component/hero";
 import About from "./component/about-us";
 import Project from "./component/project";
@@ -8,7 +7,7 @@ import ToolsSection from "./component/professional-rle";
 
 const InfoPage = () => {
   return (
-    <div className={styles.wrapper}>
+    <div className="flex flex-col gap-[2rem] w-full h-full lg:gap-[3rem]">
       <Hero />
       <About />
       <Project />

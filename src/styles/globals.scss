@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
 @import "./mixins";
 @import "./variables";
 /* Light Theme (default) */
@@ -378,7 +384,3 @@ span {
 .text-generic-black {
   color: var(--generic-black);
 }
-
-// input[type="tel"] {
-//   outline: solid red;
-// }
