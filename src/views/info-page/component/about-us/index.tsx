@@ -83,11 +83,11 @@ import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <section className="w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center gap-[3.25rem] pt-[16px] px-[20px] pb-[20px]">
+    <section id="about" className="w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center gap-[3.25rem] pt-[16px] px-[20px] pb-[20px]">
       <motion.h2
-        initial={{ opacity: 0, y: -30 }}
+        initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, type: "spring" }}
         className="relative text-[#1e1e1e] text-center font-[MAINLUX-Bold] font-light text-[28px] sm:text-[32px] lg:text-[40px] after:content-[''] after:block after:w-[60px] after:h-[3px] after:mx-auto after:mt-4 after:rounded-[2px] after:bg-gradient-to-r after:from-[#16796f] after:to-[#06b6d4]"
       >
         About Me

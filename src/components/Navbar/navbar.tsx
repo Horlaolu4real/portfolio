@@ -26,7 +26,7 @@ const Navbar = () => {
     { name: "Home", link: "/" },
     { name: "About", link: "/#about" },
     { name: "Projects", link: "/#projects" },
-    { name: "Contact", link: "/#contact" },
+    { name: "Details", link: "/#details" },
   ];
   return (
     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}>

@@ -1,11 +1,21 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import logo from "@/components/images/logo-size.webp";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <section className="w-full border-t-2 border-[#1e1e1e] px-[2rem] py-[1.25rem] bg-transparent">
-      <footer className="w-full max-w-[1440px] flex justify-center items-center gap-8 flex-wrap text-#fff lg:flex-row lg:justify-between sm:flex-col sm:items-center sm:justify-center sm:gap-6">
+    <motion.section
+      initial={{ opacity: 0, x: 100 }} // start state
+      animate={{ opacity: 1, x: 0 }} // end state
+      transition={{ duration: 1, ease: "easeInOut" }}
+      className="w-full border-t-2 border-[#1e1e1e] px-[2rem] py-[1.25rem] bg-transparent"
+    >
+      <footer
+        id="details"
+        className="w-full max-w-[1440px] flex justify-center items-center gap-8 flex-wrap text-#fff lg:flex-row lg:justify-between sm:flex-col sm:items-center sm:justify-center sm:gap-6"
+      >
         <div>
           <Image
             src={logo}
@@ -53,7 +63,7 @@ const Footer = () => {
           </li>
         </ul>
       </footer>
-    </section>
+    </motion.section>
   );
 };
 
