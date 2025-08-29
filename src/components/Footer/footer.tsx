@@ -13,7 +13,7 @@ const Footer = () => {
             className="w-[200px] h-auto filter-[drop-shadow(0_2px_4px_rgba(0,0,0,0.3))]"
           />
         </div>
-        <ul className="flex list-none flex gap-8 m-0 p-0 flex-wrap lg:gap-[6] lg:flex-row sm:flex-col sm:gap-4">
+        <ul className="list-none flex gap-8 m-0 p-0 flex-wrap lg:gap-[6] lg:flex-row sm:flex-col sm:gap-4">
           <a
             href="mailto:olaoluwayusuf121@gmail.com"
             className="no-underline text-inherit bg-inherit"
