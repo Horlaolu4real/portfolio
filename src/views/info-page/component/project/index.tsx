@@ -27,17 +27,13 @@ const Project = () => {
       </motion.h2>
       <motion.div
         variants={boxVariants}
-        initial="hidden"
-        animate="visible"
-        transition={{ duration: 0.5 }}
-        className="flex w-full items-center flex-col justify-between gap-5 lg:flex-row"
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.5 }}
+        className="flex  lg:items-center flex-col justify-between gap-5 lg:flex-row"
       >
         <div className="flex flex-col">
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.3 }}
-            className="w-fit h-[328px] bg-transparent overflow-hidden"
-          >
+          <div className="w-fit min-h[250px] h-[270px] bg-transparent overflow-hidden">
             <a
               href="https://www.clubarant.com/"
               target="_blank"
@@ -50,19 +46,15 @@ const Project = () => {
                 className="w-full h-full rounded-tl-none rounded-tr-[24px] rounded-br-none rounded-bl-[24px] objet-cover"
               />
             </a>
-          </motion.div>
+          </div>
 
-          <p className="font-[MAINLUX-Bold] font-light text-[#1e1e1e] pt-4 px-[0px] pb-0">
+          <p className="font-[MAINLUX-Bold] text-4xl font-light bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent pt-4 px-[0px] pb-0">
             Clubarant
           </p>
         </div>
 
         <div className="flex flex-col">
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.3 }}
-            className="w-fit h-[328px] bg-transparent overflow-hidden"
-          >
+          <div className="w-fit min-h[250px] h-[270px] bg-transparent overflow-hidden">
             <a
               href="https://www.roguedevtech.com/"
               target="_blank"
@@ -76,18 +68,14 @@ const Project = () => {
                 className="w-full h-full rounded-tl-none rounded-tr-[24px] rounded-br-none rounded-bl-[24px] objet-cover"
               />
             </a>
-          </motion.div>
+          </div>
 
-          <p className="font-[MAINLUX-Bold] font-light text-[#1e1e1e] pt-4 px-[0px] pb-0">
+          <p className="font-[MAINLUX-Bold] text-4xl font-light bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent pt-4 px-[0px] pb-0">
             Rogue dev
           </p>
         </div>
         <div className="flex flex-col">
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.3 }}
-            className="w-fit h-[328px] bg-transparent overflow-hidden"
-          >
+          <div className="w-fit min-h[250px] h-[270px] bg-transparent overflow-hidden">
             <a
               href="https://todoweb-lake.vercel.app/"
               target="_blank"
@@ -100,9 +88,9 @@ const Project = () => {
                 className="w-full h-full rounded-tl-none rounded-tr-[24px] rounded-br-none rounded-bl-[24px] objet-cover"
               />
             </a>
-          </motion.div>
+          </div>
 
-          <p className="font-[MAINLUX-Bold] font-light text-[#1e1e1e] pt-4 px-[0px] pb-0">
+          <p className="font-[MAINLUX-Bold] text-4xl font-light bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent pt-4 px-[0px] pb-0">
             TodoApp
           </p>
         </div>

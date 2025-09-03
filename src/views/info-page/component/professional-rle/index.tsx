@@ -18,25 +18,32 @@ const tools = [
 
 const ToolsSection = () => {
   return (
-    <section className={styles.toolsSection}>
+    <section className="w-full py-[4rem] px-[1.25rem] bg-transparent flex flex-col align-center justify-center">
       <motion.h2
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, type: "spring" }}
-        className={styles.toolsHeader}
+        className="
+    text-[36px] md:text-5xl 
+    font-[MAINLUX-Bold] font-light 
+    text-center mb-12 text-[#1e1e1e] relative
+    after:content-[''] after:block after:w-[60px] after:h-[3px]
+    after:mt-4 after:mx-auto 
+    after:bg-gradient-to-r after:from-[#16796f] after:to-[#06b6d4]
+    after:rounded-sm
+  "
       >
         Tools
       </motion.h2>
 
-      {/* Navbar */}
-      <nav className={styles.toolsNav}>
-        <ul>
+      <nav className="flex items-center justify-center mb-12 ">
+        <ul className="flex flex-wrap gap-6 list-none p-0 m-0">
           {tools.map((tool, i) => (
             <motion.li
               key={i}
-              whileHover={{ scale: 1.1, color: "#16796f" }}
+              whileHover={{ scale: 1.1, y: -2, color: "#16796f" }}
               transition={{ type: "spring", stiffness: 200 }}
-              className={styles.tool}
+              className="font-[MAINLUX-Bold] text-[1.25em] text-[#1e1e1e] font-light"
             >
               {tool.name}
             </motion.li>
@@ -44,16 +51,24 @@ const ToolsSection = () => {
         </ul>
       </nav>
 
-      {/* Icons Grid */}
-      <div className={styles.toolsGrid}>
+      <div className="grid gap-[1.5em] w-full h-full justify-center lg:grid-cols-4 sm:grid-cols-3 ">
         {tools.map((tool, i) => (
           <motion.div
             key={i}
-            whileHover={{ scale: 1.15 }}
-            className={styles.toolCard}
+            whileHover={{
+              scale: 1.15,
+              y: -6,
+              boxShadow: "0 12px 28px rgba(0,0,0,0.15)",
+              backgroundColor: "#1e1e1e",
+              color: "#ffffff",
+            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="flex flex-col items-center bg-white/70 rounded-2xl p-6 shadow-md w-full max-w-[220px]"
           >
             {tool.icon}
-            <p>{tool.name}</p>
+            <p className="mt-3 text-base font-semibold  font-[MAINLUX-Bold]">
+              {tool.name}
+            </p>
           </motion.div>
         ))}
       </div>

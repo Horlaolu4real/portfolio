@@ -7,7 +7,7 @@ import ToolsSection from "./component/professional-rle";
 
 const InfoPage = () => {
   return (
-    <div className="flex flex-col gap-[2rem] w-full h-full lg:gap-[3rem]">
+    <div className="flex flex-col gap-[2rem] min-h-screen lg:gap-[3rem] bg-gradient-to-br from-[#fdfbfb] to-[#ebedee]">
       <Hero />
       <About />
       <Project />
