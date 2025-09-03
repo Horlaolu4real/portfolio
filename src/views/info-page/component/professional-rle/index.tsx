@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaHtml5, FaCss3Alt, FaSass, FaReact } from "react-icons/fa";
 import { SiTailwindcss, SiJavascript, SiNextdotjs } from "react-icons/si";
-import styles from "./styles.module.scss";
 
 const tools = [
   { name: "HTML", icon: <FaHtml5 color="#E34F26" size={50} /> },
@@ -51,25 +50,19 @@ const ToolsSection = () => {
         </ul>
       </nav>
 
-      <div className="grid gap-[1.5em] w-full h-full justify-center lg:grid-cols-4 sm:grid-cols-3 ">
+      <div className="grid gap-[1.5em] w-full h-full grid-cols-2 justify-center sm:grid-cols-3 lg:grid-cols-4">
         {tools.map((tool, i) => (
-          <motion.div
+          <div
             key={i}
-            whileHover={{
-              scale: 1.15,
-              y: -6,
-              boxShadow: "0 12px 28px rgba(0,0,0,0.15)",
-              backgroundColor: "#1e1e1e",
-              color: "#ffffff",
-            }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="flex flex-col items-center bg-white/70 rounded-2xl p-6 shadow-md w-full max-w-[220px]"
+            className="flex flex-col items-center bg-white/70 rounded-2xl p-6 shadow-md w-full max-w-[220px] 
+              transition duration-300 ease-out 
+              hover:scale-[1.1] hover:bg-[#1e1e1e] hover:text-[#ffffff] hover:shadow-lg"
           >
             {tool.icon}
-            <p className="mt-3 text-base font-semibold  font-[MAINLUX-Bold]">
+            <p className="mt-3 text-base font-semibold font-[MAINLUX-Bold]">
               {tool.name}
             </p>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

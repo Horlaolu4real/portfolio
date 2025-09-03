@@ -1,5 +1,3 @@
-
-
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
@@ -49,7 +47,7 @@ const About = () => {
 
         <div className="w-full lg:w-1/2 overflow-hidden whitespace-nowrap relative">
           <motion.div
-            className="flex"
+            className="flex mt-[120px]"
             animate={{ x: ["0%", "-100%"] }}
             transition={{
               duration: 12,
