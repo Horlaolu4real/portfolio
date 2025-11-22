@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
 
-const images = [
+const images: string[] = [
   "/Hero-portfolio.webp",
   "/new-cover.jpg",
   "/second-new-cover.jpg",
@@ -18,58 +18,82 @@ const container: Variants = {
 };
 
 const letter: Variants = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 14 },
   visible: {
     opacity: 1,
     y: 0,
+    transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const slideVariants: Variants = {
+  enter: {
+    x: "100%",
+    opacity: 1,
+  },
+  center: {
+    x: 0,
+    opacity: 1,
     transition: {
-      duration: 0.28,
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+  exit: {
+    x: "-100%",
+    opacity: 1,
+    transition: {
+      duration: 0.9,
       ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
 const Hero = () => {
-  const [startIndex, SetStartIndex] = useState(0);
+  const [index, setIndex] = useState(0);
 
+  // Auto-slide
   useEffect(() => {
     const interval = setInterval(() => {
-      SetStartIndex((prev) => (prev + 1) % images.length);
-    }, 3000);
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 3500);
     return () => clearInterval(interval);
   }, []);
 
   const name = "Olaoluwa Yusuf";
 
   return (
-    <section className="w-full">
-      <div className="w-full h-[400px] mx-auto overflow-hidden lg:h-[850px] relative">
-        <AnimatePresence mode="wait">
+    <section className="lg:m-6 m-0">
+      <div className="w-full h-[420px] sm:h-[500px] md:h-[650px] lg:h-[850px] mx-auto overflow-hidden lg:rounded-xl rounded relative">
+        <AnimatePresence>
           <motion.div
-            key={startIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute w-full h-full"
+            key={index}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="absolute inset-0 w-full h-full"
           >
             <Image
-              src={images[startIndex]}
-              alt="image"
+              src={images[index]}
+              alt={`hero-${index}`}
               fill
+              priority
               className="object-cover"
             />
           </motion.div>
         </AnimatePresence>
 
-        <div className="absolute inset-0 w-full h-full bg-black/30">
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 lg:gap-4">
-            <h1 className="font-[Poppins] font-light text-white/70 text-[16px] lg:text-[20px] text-center">
+        {/* OVERLAY + TEXT */}
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-2 lg:gap-4 text-center px-4">
+            <h1 className="font-[Poppins] font-light text-white/70 text-[15px] sm:text-[18px] lg:text-[20px]">
               Frontend Engineer
             </h1>
+
             <motion.p
-              key={startIndex}
-              className="font-[MAINLUX-Bold] font-light text-white text-[clamp(2.4rem,6vw,6rem)] flex gap-1"
+              key={index} // re-run text stagger on every slide
+              className="font-[MAINLUX-Bold] text-white text-[clamp(2.4rem,6vw,6rem)] flex gap-1"
               variants={container}
               initial="hidden"
               animate="visible"

@@ -14,7 +14,7 @@ const Project = () => {
   return (
     <section
       id="projects"
-      className="w-full h-full p-5 flex flex-col items-center justify-center max-w-[1440px] mx-auto gap-5 "
+      className="w-full h-full p-16 flex flex-col items-center justify-center max-w-[1440px] mx-auto gap-5 "
     >
       <motion.h2
         initial={{ opacity: 0, y: -100 }}

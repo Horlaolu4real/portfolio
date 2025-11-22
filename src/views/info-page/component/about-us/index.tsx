@@ -8,7 +8,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center gap-[3.25rem] pt-[16px] px-[20px] pb-[20px]"
+      className="w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center gap-[3.25rem] pt-[16px] px-16 pb-[20px]"
     >
       {/* Heading */}
       <motion.h2

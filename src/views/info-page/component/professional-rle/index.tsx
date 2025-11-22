@@ -17,7 +17,7 @@ const tools = [
 
 const ToolsSection = () => {
   return (
-    <section className="w-full py-[4rem] px-[1.25rem] bg-transparent flex flex-col align-center justify-center">
+    <section className="w-full py-[4rem] px-16 bg-transparent flex flex-col align-center justify-center max-w-[1440px] mx-auto">
       <motion.h2
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
