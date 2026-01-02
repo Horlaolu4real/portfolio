@@ -17,54 +17,59 @@ const tools = [
 
 const ToolsSection = () => {
   return (
-    <section className="w-full py-[4rem] px-[1.25rem] bg-transparent flex flex-col align-center justify-center">
+    <section className="w-full border border-[red] flex-col  max-w-[1440px] mx-auto">
       <motion.h2
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, type: "spring" }}
-        className="
-    text-[36px] md:text-5xl 
-    font-[MAINLUX-Bold] font-light 
-    text-center mb-12 text-[#1e1e1e] relative
-    after:content-[''] after:block after:w-[60px] after:h-[3px]
-    after:mt-4 after:mx-auto 
-    after:bg-gradient-to-r after:from-[#16796f] after:to-[#06b6d4]
-    after:rounded-sm
-  "
+        className="text-[36px] md:text-[48px] font-light text-center mb-12 text-[#1e1e1e] relative font-[MAINLUX-Bold]
+    after:content-[''] after:block after:w-[60px] after:h-[3px] after:mt-4 after:mx-auto after:bg-gradient-to-r after:from-[#16796f] after:to-[#06b6d4] after:rounded"
       >
-        Tools
+        Tools & Skills
       </motion.h2>
 
-      <nav className="flex items-center justify-center mb-12 ">
-        <ul className="flex flex-wrap gap-6 list-none p-0 m-0">
+      <motion.nav
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="flex items-center justify-center mb-12 w-full"
+      >
+        <ul className="flex flex-wrap gap-4 list-none p-0 m-0 justify-center">
           {tools.map((tool, i) => (
             <motion.li
               key={i}
-              whileHover={{ scale: 1.1, y: -2, color: "#16796f" }}
+              whileHover={{ scale: 1.05, color: "#16796f" }}
               transition={{ type: "spring", stiffness: 200 }}
-              className="font-[MAINLUX-Bold] text-[1.25em] text-[#1e1e1e] font-light"
+              className="font-[MAINLUX-Bold] text-sm md:text-base text-[#1e1e1e] font-light"
             >
               {tool.name}
             </motion.li>
           ))}
         </ul>
-      </nav>
+      </motion.nav>
 
-      <div className="grid gap-[1.5em] w-full h-full grid-cols-2 justify-center sm:grid-cols-3 lg:grid-cols-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="grid gap-6 w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 place-items-center"
+      >
         {tools.map((tool, i) => (
-          <div
+          <motion.div
             key={i}
-            className="flex flex-col items-center bg-white/70 rounded-2xl p-6 shadow-md w-full max-w-[220px] 
-              transition duration-300 ease-out 
-              hover:scale-[1.1] hover:bg-[#1e1e1e] hover:text-[#ffffff] hover:shadow-lg"
+            whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl p-8 w-full max-w-[200px] h-[220px]
+              shadow-lg transition-all duration-300
+              hover:bg-[#1e1e1e] hover:text-whiL"
           >
-            {tool.icon}
-            <p className="mt-3 text-base font-semibold font-[MAINLUX-Bold]">
+            <div className="text-5xl mb-4">{tool.icon}</div>
+            <p className="text-center text-sm font-semibold font-[MAINLUX-Bold] tracking-wide">
               {tool.name}
             </p>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

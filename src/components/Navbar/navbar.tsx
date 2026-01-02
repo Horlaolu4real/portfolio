@@ -120,14 +120,14 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-5 left-1/2 -translate-x-1/2 z-[1000] transition-all duration-300 
+      className={`fixed top-6 left-1/2 -translate-x-1/2 z-[1000] transition-all duration-300 
       ${
         isScrolled
-          ? "bg-[#111]/90 backdrop-blur-md rounded-full w-[90%] py-6 px-6 shadow-md"
-          : "bg-gradient-to-r from-[#1a1a1a]/70 via-[#2c2c2c]/70 to-[#1a1a1a]/70 w-[90%] py-6 px-6 rounded-2xl shadow-lg"
+          ? "bg-[#111]/90 backdrop-blur-md rounded-full w-[95%] md:w-[80%] py-4 px-6 shadow-md"
+          : "bg-gradient-to-r from-[#1a1a1a]/70 via-[#2c2c2c]/70 to-[#1a1a1a]/70 w-[95%] md:w-[80%] py-3 px-5 rounded-2xl shadow-lg"
       }`}
     >
-      <div className="flex justify-between items-center max-w-[1440px] mx-auto">
+      <div className="flex justify-between items-center max-w-[1200px] w-full mx-auto px-2">
         {/* Logo */}
         <Link
           href="/"

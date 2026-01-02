@@ -14,7 +14,7 @@ const Project = () => {
   return (
     <section
       id="projects"
-      className="w-full h-full p-5 flex flex-col items-center justify-center max-w-[1440px] mx-auto gap-5 "
+      className="w-full flex flex-col items-center justify-center px-4 py-12 md:py-20 max-w-[1440px] mx-auto"
     >
       <motion.h2
         initial={{ opacity: 0, y: -100 }}
@@ -30,67 +30,73 @@ const Project = () => {
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.5 }}
-        className="flex  lg:items-center flex-col justify-between gap-5 lg:flex-row"
+        className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 place-items-center"
       >
-        <div className="flex flex-col">
-          <div className="w-fit min-h[250px] h-[270px] bg-transparent overflow-hidden">
+        <div className="flex flex-col items-center w-full">
+          <div className="relative w-full h-[280px] sm:h-[300px] bg-transparent overflow-hidden rounded-[24px] shadow-lg hover:shadow-xl transition-shadow duration-300">
             <a
               href="https://www.clubarant.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="no-underline text-inherit bg-inherit"
+              className="no-underline text-inherit bg-inherit block w-full h-full"
             >
               <Image
                 src={imgOne}
                 alt="Clubarant website"
-                className="w-full h-full rounded-tl-none rounded-tr-[24px] rounded-br-none rounded-bl-[24px] objet-cover"
+                fill
+                priority
+                className="object-cover rounded-[24px]"
               />
             </a>
           </div>
 
-          <p className="font-[MAINLUX-Bold] text-4xl font-light bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent pt-4 px-[0px] pb-0">
+          <p className="mt-6 text-xl sm:text-2xl font-semibold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center">
             Clubarant
           </p>
         </div>
 
-        <div className="flex flex-col">
-          <div className="w-fit min-h[250px] h-[270px] bg-transparent overflow-hidden">
+        <div className="flex flex-col items-center w-full">
+          <div className="relative w-full h-[280px] sm:h-[300px] bg-transparent overflow-hidden rounded-[24px] shadow-lg hover:shadow-xl transition-shadow duration-300">
             <a
               href="https://www.roguedevtech.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="no-underline text-inherit bg-inherit"
+              className="no-underline text-inherit bg-inherit block w-full h-full"
             >
-              {" "}
               <Image
                 src={imgTwo}
-                alt="images"
-                className="w-full h-full rounded-tl-none rounded-tr-[24px] rounded-br-none rounded-bl-[24px] objet-cover"
+                alt="Rogue dev website"
+                fill
+                priority
+                className="object-cover rounded-[24px]"
               />
             </a>
           </div>
 
-          <p className="font-[MAINLUX-Bold] text-4xl font-light bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent pt-4 px-[0px] pb-0">
+          <p className="mt-6 text-xl sm:text-2xl font-semibold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center">
             Rogue dev
           </p>
         </div>
-        <div className="flex flex-col">
-          <div className="w-fit min-h[250px] h-[270px] bg-transparent overflow-hidden">
+
+        <div className="flex flex-col items-center w-full">
+          <div className="relative w-full h-[280px] sm:h-[300px] bg-transparent overflow-hidden rounded-[24px] shadow-lg hover:shadow-xl transition-shadow duration-300">
             <a
               href="https://todoweb-lake.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="no-underline text-inherit bg-inherit"
+              className="no-underline text-inherit bg-inherit block w-full h-full"
             >
               <Image
                 src={imgThree}
-                alt="images"
-                className="w-full h-full rounded-tl-none rounded-tr-[24px] rounded-br-none rounded-bl-[24px] objet-cover"
+                alt="Todo app demo"
+                fill
+                priority
+                className="object-cover rounded-[24px]"
               />
             </a>
           </div>
 
-          <p className="font-[MAINLUX-Bold] text-4xl font-light bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent pt-4 px-[0px] pb-0">
+          <p className="mt-6 text-xl sm:text-2xl font-semibold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center">
             TodoApp
           </p>
         </div>
