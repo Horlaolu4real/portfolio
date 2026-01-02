@@ -1,101 +1,71 @@
-// "use client";
-// import React, { useEffect, useState } from "react";
-// import { usePathname } from "next/navigation";
-// import styles from "./styles.module.scss";
-// import { FaBars, FaTimes } from "react-icons/fa";
-// import Link from "next/link";
-
-// const Navbar = () => {
-//   const [menuOpen, setMenuOpen] = useState(false);
-//   const [isScrolled, setIsScrolled] = useState(false);
-//   const pathname = usePathname();
-
-//   useEffect(() => {
-//     setMenuOpen(false);
-//   }, [pathname]);
-
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       setIsScrolled(window.scrollY > 250);
-//     };
-//     window.addEventListener("scroll", handleScroll);
-//     handleScroll();
-//     return () => window.removeEventListener("scroll", handleScroll);
-//   }, []);
-//   const navList = [
-//     { name: "Home", link: "/" },
-//     { name: "About", link: "/#about" },
-//     { name: "Projects", link: "/#projects" },
-//     { name: "Details", link: "/#details" },
-//   ];
-//   return (
-//     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}>
-//       <div className={styles.nav_wrapper}>
-//         <div className={styles.nav_text}>
-//           <div className={styles.nav_container}>
-//             <div className={styles.logo}>
-//               <Link href="/">
-//                 <h1>Olaoluwa</h1>
-//               </Link>
-//             </div>
-//             {!menuOpen && (
-//               <button
-//                 className={styles.hamburger}
-//                 onClick={() => setMenuOpen(true)}
-//                 aria-label="Open menu"
-//               >
-//                 <FaBars />
-//               </button>
-//             )}
-//             <div
-//               className={`${styles.route} ${menuOpen ? styles.menu_open : ""}`}
-//             >
-//               {menuOpen && (
-//                 <button
-//                   className={styles.close}
-//                   onClick={() => setMenuOpen(false)}
-//                   aria-label="Close menu"
-//                 >
-//                   <FaTimes />
-//                 </button>
-//               )}
-//               <ul className={styles.nav_links}>
-//                 {navList.map((item) => (
-//                   <li
-//                     key={item.name}
-//                     className={pathname === item.link ? styles.active : ""}
-//                   >
-//                     <Link href={item.link} onClick={() => setMenuOpen(false)}>
-//                       {item.name}
-//                     </Link>
-//                   </li>
-//                 ))}
-//               </ul>
-//             </div>
-//           </div>
-//           <div
-//             className={`${styles.menu_backdrop} ${
-//               menuOpen ? styles.visible : ""
-//             }`}
-//             onClick={() => setMenuOpen(false)}
-//           />
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-
 "use client";
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
+import GridPattern from "@/components/Decoratives/GridPattern";
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
 
-const Navbar = () => {
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 25,
+    },
+  },
+};
+
+const mobileMenuVariants: Variants = {
+  closed: {
+    opacity: 0,
+    x: "100%",
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    },
+  },
+  open: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const mobileItemVariants: Variants = {
+  closed: { opacity: 0, x: 20 },
+  open: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "spring",
+      stiffness: 200,
+      damping: 20,
+    },
+  },
+};
+
+const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -104,7 +74,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 250);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     handleScroll();
@@ -115,83 +85,320 @@ const Navbar = () => {
     { name: "Home", link: "/" },
     { name: "About", link: "/#about" },
     { name: "Projects", link: "/#projects" },
-    { name: "Details", link: "/#details" },
+    { name: "Contact", link: "/#details" },
   ];
 
+  // Floating orbs for navbar background
+  const floatingOrbs = [
+    { delay: 0, size: 20, x: 10, y: 30 },
+    { delay: 1.5, size: 15, x: 85, y: 60 },
+    { delay: 3, size: 25, x: 50, y: 20 },
+  ];
+
+  interface FloatingOrbProps {
+    delay?: number;
+    size?: number;
+    x?: number;
+    y?: number;
+  }
+
+  const FloatingOrb: React.FC<FloatingOrbProps> = ({
+    delay = 0,
+    size = 20,
+    x = 0,
+    y = 0,
+  }) => (
+    <motion.div
+      className="absolute rounded-full pointer-events-none"
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        background:
+          "radial-gradient(circle at 30% 30%, rgba(6, 182, 212, 0.15), transparent 70%)",
+        left: `${x}%`,
+        top: `${y}%`,
+      }}
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{
+        opacity: [0.05, 0.15, 0.05],
+        scale: [1, 1.1, 1],
+        x: [0, Math.random() * 10 - 5, 0],
+        y: [0, Math.random() * 10 - 5, 0],
+      }}
+      transition={{
+        duration: 8 + Math.random() * 4,
+        repeat: Infinity,
+        delay,
+        ease: "easeInOut",
+      }}
+    />
+  );
+
   return (
-    <nav
-      className={`fixed top-6 left-1/2 -translate-x-1/2 z-[1000] transition-all duration-300 
-      ${
-        isScrolled
-          ? "bg-[#111]/90 backdrop-blur-md rounded-full w-[95%] md:w-[80%] py-4 px-6 shadow-md"
-          : "bg-gradient-to-r from-[#1a1a1a]/70 via-[#2c2c2c]/70 to-[#1a1a1a]/70 w-[95%] md:w-[80%] py-3 px-5 rounded-2xl shadow-lg"
-      }`}
-    >
-      <div className="flex justify-between items-center max-w-[1200px] w-full mx-auto px-2">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="hover:no-underline font-[MAINLUX-Bold] text-2xl text-[#ffd700]"
-        >
-          Olaoluwa
-        </Link>
+    <>
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled || menuOpen
+            ? "backdrop-blur-xl bg-black/30 border-b border-white/10 py-3"
+            : "bg-transparent py-4"
+        }`}
+      >
+        <GridPattern
+          size={30}
+          opacity={0.05}
+          color="#06b6d4"
+          className="-z-10"
+        />
+        {floatingOrbs.map((orb, index) => (
+          <FloatingOrb key={index} {...orb} />
+        ))}
+        <div className="absolute bottom-2 left-0 right-0 flex justify-center pointer-events-none">
+          <motion.div
+            className="h-1 w-28 rounded-full"
+            animate={{
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            style={{
+              background: "linear-gradient(90deg, #06b6d4, #8b5cf6)",
+              backgroundSize: "200% 100%",
+            }}
+          />
+        </div>
 
-        {/* Hamburger (Mobile only) */}
-        {!menuOpen && (
-          <button
-            className="lg:hidden text-[#ffd700] text-2xl z-[1002]"
-            onClick={() => setMenuOpen(true)}
+        <div className="max-w-[1440px] mx-auto px-4 flex items-center justify-between h-16">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="relative"
           >
-            <FaBars />
-          </button>
-        )}
-        <div
-          className={`lg:flex lg:items-center lg:gap-8 transition-transform duration-300 
-          ${
-            menuOpen
-              ? "fixed top-0 right-0 w-[80%] sm:w-[100%] h-screen bg-gradient-to-b from-[#1a1a1a] via-[#222] to-[#111] flex flex-col items-start px-8 py-16 gap-6 shadow-lg z-[1001] translate-x-0"
-              : "hidden lg:flex"
-          }`}
-        >
-          {menuOpen && (
-            <button
-              className="absolute top-6 right-6 text-[#ffd700] text-2xl"
-              onClick={() => setMenuOpen(false)}
+            <Link
+              href="/"
+              className="hover:no-underline font-[MAINLUX-Bold] text-2xl relative group"
+              style={{ textDecoration: "none" }}
             >
-              <FaTimes />
-            </button>
-          )}
-
-          <ul className="flex flex-col lg:flex-row gap-6 lg:gap-10 list-none">
-            {navList.map((item) => (
-              <li
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Olaoluwa
+              </span>
+              <motion.span
+                className="absolute inset-0 -z-10 blur-xl opacity-0 group-hover:opacity-30"
+                animate={{
+                  background: [
+                    "radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.4), transparent 50%)",
+                    "radial-gradient(circle at 70% 50%, rgba(139, 92, 246, 0.4), transparent 50%)",
+                    "radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.4), transparent 50%)",
+                  ],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </Link>
+          </motion.div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="hidden lg:flex items-center gap-8"
+          >
+            {navList.map((item, index) => (
+              <motion.div
                 key={item.name}
-                className={`relative font-[Inter] text-[16px] transition-colors duration-300 
-                ${
-                  pathname === item.link
-                    ? "text-[#ffd700] font-semibold"
-                    : "text-gray-300 hover:text-[#ffd700]"
-                }`}
+                variants={itemVariants}
+                onMouseEnter={() => setHoveredItem(index)}
+                onMouseLeave={() => setHoveredItem(null)}
+                className="relative"
               >
                 <Link
                   href={item.link}
-                  className="hover:no-underline"
-                  onClick={() => setMenuOpen(false)}
+                  className="relative font-[Inter] text-[24px] font-medium tracking-wide px-2 py-1 rounded-lg transition-all duration-300"
+                  style={{ textDecoration: "none" }}
                 >
-                  {item.name}
+                  <span
+                    className={`relative z-10 ${
+                      pathname === item.link
+                        ? "text-cyan-400"
+                        : "text-gray-300 hover:text-white"
+                    }`}
+                  >
+                    {item.name}
+                  </span>
+                  <motion.div
+                    className="absolute inset-0 rounded-lg -z-10"
+                    animate={{
+                      background:
+                        hoveredItem === index
+                          ? [
+                              "linear-gradient(90deg, rgba(6,182,212,0.1), rgba(139,92,246,0.1), rgba(6,182,212,0.1))",
+                            ]
+                          : "linear-gradient(90deg, transparent, transparent)",
+                      backgroundSize:
+                        hoveredItem === index ? "200% 100%" : "100% 100%",
+                      backgroundPosition:
+                        hoveredItem === index
+                          ? ["0% 50%", "100% 50%", "0% 50%"]
+                          : "0% 50%",
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  />
+                  {pathname === item.link && (
+                    <motion.div
+                      layoutId="activeIndicator"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
                 </Link>
-              </li>
+              </motion.div>
             ))}
-          </ul>
+          </motion.div>
+          <motion.button
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 backdrop-blur-sm"
+            onClick={() => setMenuOpen(!menuOpen)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            animate={{ rotate: menuOpen ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="relative w-6 h-5">
+              <motion.span
+                className="absolute left-0 w-6 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400"
+                animate={{
+                  top: menuOpen ? "50%" : "0%",
+                  rotate: menuOpen ? 45 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span
+                className="absolute left-0 w-6 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400"
+                animate={{
+                  top: "50%",
+                  opacity: menuOpen ? 0 : 1,
+                }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span
+                className="absolute left-0 w-6 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400"
+                animate={{
+                  top: menuOpen ? "50%" : "100%",
+                  rotate: menuOpen ? -45 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
+          </motion.button>
         </div>
-      </div>
-      {menuOpen && (
-        <div
-          className="fixed top-0 left-0 w-full h-full bg-black/50 z-[1000]"
-          onClick={() => setMenuOpen(false)}
-        />
-      )}
-    </nav>
+      </motion.nav>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={mobileMenuVariants}
+            className="fixed inset-0 z-40 lg:hidden"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(17,24,39,0.98) 0%, rgba(3,7,18,0.98) 100%)",
+              backdropFilter: "blur(20px)",
+            }}
+          >
+            <GridPattern size={40} opacity={0.08} color="#06b6d4" />
+            {floatingOrbs.map((orb, index) => (
+              <FloatingOrb key={index} {...orb} size={orb.size * 2} />
+            ))}
+
+            <div className="relative h-full flex flex-col items-center justify-center px-6">
+              <motion.button
+                aria-label="Close menu"
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center"
+                onClick={() => setMenuOpen(false)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <span className="text-2xl text-white">×</span>
+              </motion.button>
+              <motion.div className="flex flex-col items-center gap-8">
+                {navList.map((item) => (
+                  <motion.div
+                    key={item.name}
+                    variants={mobileItemVariants}
+                    className="relative"
+                  >
+                    <Link
+                      href={item.link}
+                      onClick={() => setMenuOpen(false)}
+                      className="relative text-2xl font-medium tracking-wide px-4 py-2 rounded-lg transition-all duration-300 block"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <span
+                        className={`relative z-10 ${
+                          pathname === item.link
+                            ? "bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent"
+                            : "text-white hover:text-gray-300"
+                        }`}
+                      >
+                        {item.name}
+                      </span>
+                      {pathname === item.link && (
+                        <motion.div
+                          layoutId="mobileActiveIndicator"
+                          className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      )}
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="absolute bottom-8 left-0 right-0 text-center"
+              >
+                <p className="text-gray-400 text-sm font-[Poppins]">
+                  Crafting digital excellence
+                </p>
+                <motion.div
+                  className="h-px w-32 mx-auto mt-2"
+                  animate={{
+                    background: [
+                      "linear-gradient(90deg, transparent, #06b6d4, transparent)",
+                      "linear-gradient(90deg, transparent, #8b5cf6, transparent)",
+                      "linear-gradient(90deg, transparent, #06b6d4, transparent)",
+                    ],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

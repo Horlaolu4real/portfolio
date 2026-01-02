@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import GridPattern from "@/components/Decoratives/GridPattern";
 
 const About = () => {
   const items = Array(12).fill(0);
@@ -8,8 +9,9 @@ const About = () => {
   return (
     <section
       id="about"
-      className="w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center gap-[3.25rem] pt-[16px] px-[20px] pb-[20px]"
+      className="relative w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center gap-[3.25rem] pt-[16px] px-4 pb-[20px]"
     >
+      <GridPattern size={40} opacity={0.03} color="#06b6d4" />
       {/* Heading */}
       <motion.h2
         initial={{ opacity: 0, y: -100 }}

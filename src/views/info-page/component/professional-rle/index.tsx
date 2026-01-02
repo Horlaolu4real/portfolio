@@ -3,7 +3,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaHtml5, FaCss3Alt, FaSass, FaReact } from "react-icons/fa";
-import { SiTailwindcss, SiJavascript, SiNextdotjs } from "react-icons/si";
+import GridPattern from "@/components/Decoratives/GridPattern";
+import {
+  SiTailwindcss,
+  SiJavascript,
+  SiNextdotjs,
+  SiFramer,
+} from "react-icons/si";
 
 const tools = [
   { name: "HTML", icon: <FaHtml5 color="#E34F26" size={50} /> },
@@ -13,11 +19,16 @@ const tools = [
   { name: "JavaScript", icon: <SiJavascript color="#F7DF1E" size={50} /> },
   { name: "React", icon: <FaReact color="#61DAFB" size={50} /> },
   { name: "Next.js", icon: <SiNextdotjs color="#000000" size={50} /> },
+  {
+    name: "Framer Motion",
+    icon: <SiFramer size={50} color="#0055FF" />,
+  },
 ];
 
 const ToolsSection = () => {
   return (
-    <section className="w-full border border-[red] flex-col  max-w-[1440px] mx-auto">
+    <section className="relative w-full flex-col  max-w-[1440px] mx-auto px-4">
+      <GridPattern size={44} opacity={0.03} color="#06b6d4" />
       <motion.h2
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
@@ -52,19 +63,19 @@ const ToolsSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="grid gap-6 w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 place-items-center"
+        className="grid gap-2 w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
       >
         {tools.map((tool, i) => (
           <motion.div
             key={i}
-            whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
-            transition={{ type: "spring", stiffness: 300 }}
-            className="flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl p-8 w-full max-w-[200px] h-[220px]
-              shadow-lg transition-all duration-300
-              hover:bg-[#1e1e1e] hover:text-whiL"
+            whileHover={{ y: -3 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="flex flex-col items-center justify-center
+    bg-[#f2f2f2] rounded-2xl p-8 w-full h-[220px]
+    shadow-sm hover:shadow-md"
           >
             <div className="text-5xl mb-4">{tool.icon}</div>
-            <p className="text-center text-sm font-semibold font-[MAINLUX-Bold] tracking-wide">
+            <p className="text-center text-sm font-semibold font-[MAINLUX-Bold] tracking-wide text-[#1e1e1e]">
               {tool.name}
             </p>
           </motion.div>

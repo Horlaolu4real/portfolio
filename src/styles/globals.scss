@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "./mixins";
-@import "./variables";
 /* Light Theme (default) */
 [data-theme="light"] {
   --neutral-50: #fafafa;
@@ -97,7 +95,6 @@
   margin: 0;
 }
 
-/* Mobile-first responsive design */
 html {
   font-size: 16px;
 
@@ -116,10 +113,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+// a {
+//   text-decoration: none;
+//   color: #656565;
+// }
+
 a {
   text-decoration: none;
-  color: #656565;
+  color: inherit;
 }
+
 li {
   list-style: none;
 }
