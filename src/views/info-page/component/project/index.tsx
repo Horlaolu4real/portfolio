@@ -1,18 +1,35 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { motion, Variants } from "framer-motion";
 import GridPattern from "@/components/Decoratives/GridPattern";
 
-import imgOne from "../.././../../../public/new-cover.jpg";
-import imgTwo from "../.././../../../public/second-new-cover.jpg";
-import imgThree from "../.././../../../public/third-cover.jpg";
-
 const Project = () => {
-  const boxVariants = {
-    hidden: { opacity: 0, x: -200 },
-    visible: { opacity: 1, x: 0 },
+  const row: Variants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
+  const projects = [
+    {
+      title: "Clubarant",
+      url: "https://www.clubarant.com/",
+      techs: ["Next.js", "Tailwind", "Framer Motion"],
+    },
+    {
+      title: "Rogue Dev",
+      url: "https://www.roguedevtech.com/",
+      techs: ["React", "SCSS", "Animations"],
+    },
+    {
+      title: "TodoApp",
+      url: "https://todoweb-lake.vercel.app/",
+      techs: ["Next.js", "Module SCSS"],
+    },
+    {
+      title: "Bricklage",
+      url: "https://dev.bricklage.com/",
+      techs: ["Next.js", "SCSS", "Deploy"],
+    },
+  ];
 
   return (
     <section
@@ -24,84 +41,50 @@ const Project = () => {
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, type: "spring" }}
-        className="text-[36px] md:text-[48px] font-light text-center mb-12 text-[#1e1e1e] relative font-[MAINLUX-Bold]
-        after:content-[''] after:block after:w-[60px] after:h-[3px] after:mt-4 after:mx-auto
-        after:bg-gradient-to-r after:from-[#16796f] after:to-[#06b6d4] after:rounded"
+        className="text-[36px] md:text-[48px] font-light text-center mb-12 text-[#0b1020] relative font-[MAINLUX-Bold]"
       >
         Projects
       </motion.h2>
 
-      <motion.div
-        variants={boxVariants}
-        initial="hidden"
-        animate="visible"
-        transition={{ duration: 1.5 }}
-        className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 place-items-center"
-      >
-        {/* CARD 1 */}
-        <a
-          href="https://www.clubarant.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-col items-center w-full no-underline hover:no-underline text-inherit"
-        >
-          <div className="relative w-full h-[280px] sm:h-[300px] overflow-hidden rounded-[24px] shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <Image
-              src={imgOne}
-              alt="Clubarant website"
-              fill
-              priority
-              className="object-cover rounded-[24px]"
-            />
-          </div>
-
-          <p className="mt-6 text-xl sm:text-2xl font-semibold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center">
-            Clubarant
-          </p>
-        </a>
-        <a
-          href="https://www.roguedevtech.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-col items-center w-full no-underline hover:no-underline text-inherit"
-        >
-          <div className="relative w-full h-[280px] sm:h-[300px] overflow-hidden rounded-[24px] shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <Image
-              src={imgTwo}
-              alt="Rogue dev website"
-              fill
-              priority
-              className="object-cover rounded-[24px]"
-            />
-          </div>
-
-          <p className="mt-6 text-xl sm:text-2xl font-semibold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center">
-            Rogue Dev
-          </p>
-        </a>
-
-        {/* CARD 3 */}
-        <a
-          href="https://todoweb-lake.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-col items-center w-full no-underline hover:no-underline text-inherit"
-        >
-          <div className="relative w-full h-[280px] sm:h-[300px] overflow-hidden rounded-[24px] shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <Image
-              src={imgThree}
-              alt="Todo app demo"
-              fill
-              priority
-              className="object-cover rounded-[24px]"
-            />
-          </div>
-
-          <p className="mt-6 text-xl sm:text-2xl font-semibold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center">
-            TodoApp
-          </p>
-        </a>
-      </motion.div>
+      <div className="w-full">
+        {projects.map((p, i) => (
+          <motion.div
+            key={p.title}
+            variants={row}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="w-full py-10"
+          >
+            <div className="flex items-end justify-between gap-6">
+              <motion.h3
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                whileHover={{ x: 4 }}
+                className="font-[MAINLUX-Bold] text-[40px] md:text-[64px] lg:text-[80px] leading-none bg-gradient-to-b from-[#bbb] to-[#666] bg-clip-text text-transparent"
+              >
+                {p.title}
+              </motion.h3>
+              <div className="flex flex-col items-end gap-3">
+                <a
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-lg border border-[#0b1020] text-[#0b1020] font-[Lato] text-[14px] hover:bg-[#0b1020] hover:text-white transition-colors"
+                  style={{ textDecoration: "none" }}
+                >
+                  VISIT SITE
+                </a>
+                <p className="text-sm text-[#0b1020] font-[Poppins]">
+                  {p.techs.join(", ")}
+                </p>
+              </div>
+            </div>
+            <div className="mt-6 h-px bg-[#0b1020]/20" />
+          </motion.div>
+        ))}
+      </div>
     </section>
   );
 };

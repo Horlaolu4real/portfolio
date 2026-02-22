@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { motion, useMotionValue } from "framer-motion";
 import { FiMail, FiLinkedin, FiGithub, FiDownload } from "react-icons/fi";
@@ -11,6 +11,7 @@ const Footer = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const [now, setNow] = useState<Date | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
@@ -23,6 +24,21 @@ const Footer = () => {
     mouseX.set(x);
     mouseY.set(y);
   };
+  useEffect(() => {
+    setNow(new Date());
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const timeString = useMemo(() => {
+    if (!now) return "";
+    const options: Intl.DateTimeFormatOptions = {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    };
+    return new Intl.DateTimeFormat("en-US", options).format(now);
+  }, [now]);
 
   const footerLinks = [
     {
@@ -248,7 +264,7 @@ const Footer = () => {
             </h3>
 
             <motion.a
-              href="/resume.pdf"
+              href="/OLAOLUWA%20YUSUF%20FRONT.pdf"
               download
               className="group relative px-8 py-4 rounded-xl overflow-hidden no-underline"
               whileHover={{ scale: 1.05 }}
@@ -310,49 +326,44 @@ const Footer = () => {
           className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent my-12"
         />
 
-        {/* Copyright */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
-          className="flex flex-col md:flex-row justify-between items-center gap-4"
+          className="flex flex-col md:flex-row justify-between items-center gap-6"
         >
-          <p className="font-[Poppins] text-gray-500 text-sm">
-            © {new Date().getFullYear()} Olaoluwa Yusuf. All rights reserved.
-          </p>
-
-          <motion.div
-            className="flex items-center gap-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+          <div className="flex items-center gap-2 text-gray-300 font-[Poppins] text-sm">
+            <span>Lagos, Ng</span>
+            <span>•</span>
+            <span className="font-mono">{timeString}</span>
+          </div>
+          <a
+            href="mailto:olaoluwayusuf121@gmail.com"
+            className="font-[MAINLUX-Bold] text-2xl text-gray-200 hover:text-white transition-colors"
+            style={{ textDecoration: "none" }}
           >
-            <motion.p
-              className="font-[Poppins] text-gray-500 text-sm"
-              animate={{
-                color: ["#6b7280", "#06b6d4", "#6b7280"],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              Crafted with precision and passion
-            </motion.p>
-            <motion.div
-              className="w-1 h-1 rounded-full bg-cyan-400"
-              animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </motion.div>
+            olaoluwayusuf121@gmail.com
+          </a>
+          <div className="flex items-center gap-3">
+            {footerLinks.map((link, i) => {
+              const Icon = link.icon;
+              return (
+                <a
+                  key={i}
+                  href={link.href}
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-xl border border-white/20 text-gray-200 hover:bg-white/10 transition-colors flex items-center gap-2"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="text-xs font-[Poppins] tracking-wide">
+                    {link.label.toUpperCase()}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
         </motion.div>
       </div>
       {/* Scroll to top button */}

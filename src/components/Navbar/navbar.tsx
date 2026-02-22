@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
-import GridPattern from "@/components/Decoratives/GridPattern";
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -66,6 +65,7 @@ const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  const [hash, setHash] = useState<string>("");
   const pathname = usePathname();
 
   useEffect(() => {
@@ -80,6 +80,12 @@ const Navbar: React.FC = () => {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  useEffect(() => {
+    const updateHash = () => setHash(window.location.hash || "");
+    window.addEventListener("hashchange", updateHash);
+    updateHash();
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, []);
 
   const navList = [
     { name: "Home", link: "/" },
@@ -87,52 +93,6 @@ const Navbar: React.FC = () => {
     { name: "Projects", link: "/#projects" },
     { name: "Contact", link: "/#details" },
   ];
-
-  // Floating orbs for navbar background
-  const floatingOrbs = [
-    { delay: 0, size: 20, x: 10, y: 30 },
-    { delay: 1.5, size: 15, x: 85, y: 60 },
-    { delay: 3, size: 25, x: 50, y: 20 },
-  ];
-
-  interface FloatingOrbProps {
-    delay?: number;
-    size?: number;
-    x?: number;
-    y?: number;
-  }
-
-  const FloatingOrb: React.FC<FloatingOrbProps> = ({
-    delay = 0,
-    size = 20,
-    x = 0,
-    y = 0,
-  }) => (
-    <motion.div
-      className="absolute rounded-full pointer-events-none"
-      style={{
-        width: `${size}px`,
-        height: `${size}px`,
-        background:
-          "radial-gradient(circle at 30% 30%, rgba(6, 182, 212, 0.15), transparent 70%)",
-        left: `${x}%`,
-        top: `${y}%`,
-      }}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{
-        opacity: [0.05, 0.15, 0.05],
-        scale: [1, 1.1, 1],
-        x: [0, Math.random() * 10 - 5, 0],
-        y: [0, Math.random() * 10 - 5, 0],
-      }}
-      transition={{
-        duration: 8 + Math.random() * 4,
-        repeat: Infinity,
-        delay,
-        ease: "easeInOut",
-      }}
-    />
-  );
 
   return (
     <>
@@ -142,37 +102,10 @@ const Navbar: React.FC = () => {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled || menuOpen
-            ? "backdrop-blur-xl bg-black/30 border-b border-white/10 py-3"
+            ? "backdrop-blur-xl bg-black/60 border-b border-white/10 shadow-[0_6px_30px_rgba(0,0,0,0.35)] py-2"
             : "bg-transparent py-4"
         }`}
       >
-        <GridPattern
-          size={30}
-          opacity={0.05}
-          color="#06b6d4"
-          className="-z-10"
-        />
-        {floatingOrbs.map((orb, index) => (
-          <FloatingOrb key={index} {...orb} />
-        ))}
-        <div className="absolute bottom-2 left-0 right-0 flex justify-center pointer-events-none">
-          <motion.div
-            className="h-1 w-28 rounded-full"
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              background: "linear-gradient(90deg, #06b6d4, #8b5cf6)",
-              backgroundSize: "200% 100%",
-            }}
-          />
-        </div>
-
         <div className="max-w-[1440px] mx-auto px-4 flex items-center justify-between h-16">
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -184,16 +117,22 @@ const Navbar: React.FC = () => {
               className="hover:no-underline font-[MAINLUX-Bold] text-2xl relative group"
               style={{ textDecoration: "none" }}
             >
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <span
+                className={
+                  isScrolled
+                    ? "text-white"
+                    : "bg-gradient-to-r from-cyan-200 via-white to-purple-200 bg-clip-text text-transparent"
+                }
+              >
                 Olaoluwa
               </span>
               <motion.span
                 className="absolute inset-0 -z-10 blur-xl opacity-0 group-hover:opacity-30"
                 animate={{
                   background: [
-                    "radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.4), transparent 50%)",
-                    "radial-gradient(circle at 70% 50%, rgba(139, 92, 246, 0.4), transparent 50%)",
-                    "radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.4), transparent 50%)",
+                    "radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.3), transparent 50%)",
+                    "radial-gradient(circle at 70% 50%, rgba(139, 92, 246, 0.3), transparent 50%)",
+                    "radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.3), transparent 50%)",
                   ],
                 }}
                 transition={{
@@ -220,41 +159,25 @@ const Navbar: React.FC = () => {
               >
                 <Link
                   href={item.link}
-                  className="relative font-[Inter] text-[24px] font-medium tracking-wide px-2 py-1 rounded-lg transition-all duration-300"
+                  className="relative font-[Inter] text-[18px] font-medium tracking-wide px-2 py-1 rounded-lg transition-all duration-300"
                   style={{ textDecoration: "none" }}
                 >
                   <span
                     className={`relative z-10 ${
-                      pathname === item.link
-                        ? "text-cyan-400"
+                      (
+                        item.link.includes("#")
+                          ? hash === item.link.slice(item.link.indexOf("#"))
+                          : pathname === item.link
+                      )
+                        ? "text-cyan-300"
                         : "text-gray-300 hover:text-white"
                     }`}
                   >
                     {item.name}
                   </span>
-                  <motion.div
-                    className="absolute inset-0 rounded-lg -z-10"
-                    animate={{
-                      background:
-                        hoveredItem === index
-                          ? [
-                              "linear-gradient(90deg, rgba(6,182,212,0.1), rgba(139,92,246,0.1), rgba(6,182,212,0.1))",
-                            ]
-                          : "linear-gradient(90deg, transparent, transparent)",
-                      backgroundSize:
-                        hoveredItem === index ? "200% 100%" : "100% 100%",
-                      backgroundPosition:
-                        hoveredItem === index
-                          ? ["0% 50%", "100% 50%", "0% 50%"]
-                          : "0% 50%",
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  />
-                  {pathname === item.link && (
+                  {(item.link.includes("#")
+                    ? hash === item.link.slice(item.link.indexOf("#"))
+                    : pathname === item.link) && (
                     <motion.div
                       layoutId="activeIndicator"
                       className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500"
@@ -269,7 +192,7 @@ const Navbar: React.FC = () => {
           </motion.div>
           <motion.button
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 backdrop-blur-sm"
+            className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm"
             onClick={() => setMenuOpen(!menuOpen)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -304,6 +227,15 @@ const Navbar: React.FC = () => {
             </div>
           </motion.button>
         </div>
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-px"
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+          }}
+        />
       </motion.nav>
       <AnimatePresence>
         {menuOpen && (
@@ -319,11 +251,6 @@ const Navbar: React.FC = () => {
               backdropFilter: "blur(20px)",
             }}
           >
-            <GridPattern size={40} opacity={0.08} color="#06b6d4" />
-            {floatingOrbs.map((orb, index) => (
-              <FloatingOrb key={index} {...orb} size={orb.size * 2} />
-            ))}
-
             <div className="relative h-full flex flex-col items-center justify-center px-6">
               <motion.button
                 aria-label="Close menu"
@@ -356,43 +283,9 @@ const Navbar: React.FC = () => {
                       >
                         {item.name}
                       </span>
-                      {pathname === item.link && (
-                        <motion.div
-                          layoutId="mobileActiveIndicator"
-                          className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                      )}
                     </Link>
                   </motion.div>
                 ))}
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="absolute bottom-8 left-0 right-0 text-center"
-              >
-                <p className="text-gray-400 text-sm font-[Poppins]">
-                  Crafting digital excellence
-                </p>
-                <motion.div
-                  className="h-px w-32 mx-auto mt-2"
-                  animate={{
-                    background: [
-                      "linear-gradient(90deg, transparent, #06b6d4, transparent)",
-                      "linear-gradient(90deg, transparent, #8b5cf6, transparent)",
-                      "linear-gradient(90deg, transparent, #06b6d4, transparent)",
-                    ],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
               </motion.div>
             </div>
           </motion.div>
