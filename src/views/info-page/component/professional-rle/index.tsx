@@ -1,86 +1,262 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import { FaHtml5, FaCss3Alt, FaSass, FaReact } from "react-icons/fa";
-import GridPattern from "@/components/Decoratives/GridPattern";
+import { motion, Variants } from "framer-motion";
+import { FaHtml5, FaCss3Alt, FaSass, FaReact, FaNodeJs } from "react-icons/fa";
 import {
   SiTailwindcss,
   SiJavascript,
   SiNextdotjs,
   SiFramer,
+  SiTypescript,
+  SiExpress,
+  SiJsonwebtokens,
+  SiMongodb,
 } from "react-icons/si";
+import CurvedLine from "@/components/curvy-line-effect";
 
-const tools = [
-  { name: "HTML", icon: <FaHtml5 color="#E34F26" size={50} /> },
-  { name: "CSS", icon: <FaCss3Alt color="#1572B6" size={50} /> },
-  { name: "SCSS", icon: <FaSass color="#CC6699" size={50} /> },
-  { name: "TailwindCSS", icon: <SiTailwindcss color="#06B6D4" size={50} /> },
-  { name: "JavaScript", icon: <SiJavascript color="#F7DF1E" size={50} /> },
-  { name: "React", icon: <FaReact color="#61DAFB" size={50} /> },
-  { name: "Next.js", icon: <SiNextdotjs color="#000000" size={50} /> },
+interface Tool {
+  name: string;
+  icon: React.ReactNode;
+  category: "frontend" | "backend";
+}
+
+const TOOLS: Tool[] = [
+  // ── Frontend ──────────────────────────────
+  {
+    name: "HTML",
+    icon: <FaHtml5 color="#E34F26" size={44} />,
+    category: "frontend",
+  },
+  {
+    name: "CSS",
+    icon: <FaCss3Alt color="#1572B6" size={44} />,
+    category: "frontend",
+  },
+  {
+    name: "SCSS",
+    icon: <FaSass color="#CC6699" size={44} />,
+    category: "frontend",
+  },
+  {
+    name: "Tailwind CSS",
+    icon: <SiTailwindcss color="#06B6D4" size={44} />,
+    category: "frontend",
+  },
+  {
+    name: "JavaScript",
+    icon: <SiJavascript color="#F7DF1E" size={44} />,
+    category: "frontend",
+  },
+  {
+    name: "TypeScript",
+    icon: <SiTypescript color="#3178C6" size={44} />,
+    category: "frontend",
+  },
+  {
+    name: "React",
+    icon: <FaReact color="#61DAFB" size={44} />,
+    category: "frontend",
+  },
+  {
+    name: "Next.js",
+    icon: <SiNextdotjs color="#ffffff" size={44} />,
+    category: "frontend",
+  },
   {
     name: "Framer Motion",
-    icon: <SiFramer size={50} color="#0055FF" />,
+    icon: <SiFramer color="#fff" size={44} />,
+    category: "frontend",
+  },
+  // ── Backend (new) ─────────────────────────
+  {
+    name: "Node.js",
+    icon: <FaNodeJs color="#68A063" size={44} />,
+    category: "backend",
+  },
+  {
+    name: "Express",
+    icon: <SiExpress color="#ffffff" size={44} />,
+    category: "backend",
+  },
+  {
+    name: "JWT Auth",
+    icon: <SiJsonwebtokens color="#e56337" size={44} />,
+    category: "backend",
+  },
+  {
+    name: "MongoDB",
+    icon: <SiMongodb color="#47A248" size={44} />,
+    category: "backend",
   },
 ];
 
+type Filter = "all" | "frontend" | "backend";
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+};
+
 const ToolsSection = () => {
+  const [active, setActive] = React.useState<Filter>("all");
+
+  const filtered =
+    active === "all" ? TOOLS : TOOLS.filter((t) => t.category === active);
+
+  const filters: { label: string; value: Filter }[] = [
+    { label: "All", value: "all" },
+    { label: "Frontend", value: "frontend" },
+    { label: "Backend", value: "backend" },
+  ];
+
   return (
-    <section className="relative w-full flex-col  max-w-[1440px] mx-auto px-4">
-      <GridPattern size={44} opacity={0.03} color="#06b6d4" />
-      <motion.h2
-        initial={{ opacity: 0, y: -100 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, type: "spring" }}
-        className="text-[36px] md:text-[48px] font-light text-center mb-12 text-[#1e1e1e] relative font-[MAINLUX-Bold]
-    after:content-[''] after:block after:w-[60px] after:h-[3px] after:mt-4 after:mx-auto after:bg-gradient-to-r after:from-[#16796f] after:to-[#06b6d4] after:rounded"
-      >
-        Tools & Skills
-      </motion.h2>
+    <section
+      id="skills"
+      className="relative w-full py-24 md:py-32 overflow-hidden"
+      style={{ backgroundColor: "var(--bg-page)" }}
+    >
+      <CurvedLine />
+      {/* Ambient glow */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full blur-[120px] pointer-events-none"
+        style={{ backgroundColor: "rgba(229,99,55,0.04)" }}
+        aria-hidden
+      />
 
-      <motion.nav
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="flex items-center justify-center mb-12 w-full"
-      >
-        <ul className="flex flex-wrap gap-4 list-none p-0 m-0 justify-center">
-          {tools.map((tool, i) => (
-            <motion.li
-              key={i}
-              whileHover={{ scale: 1.05, color: "#16796f" }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="font-[MAINLUX-Bold] text-sm md:text-base text-[#1e1e1e] font-light"
-            >
-              {tool.name}
-            </motion.li>
-          ))}
-        </ul>
-      </motion.nav>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="grid gap-2 w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
-      >
-        {tools.map((tool, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ y: -3 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="flex flex-col items-center justify-center
-    bg-[#f2f2f2] rounded-2xl p-8 w-full h-[220px]
-    shadow-sm hover:shadow-md"
+      <div className="page_container relative">
+        {/* ── Section header ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-12 md:mb-16"
+        >
+          <span className="section-label block mb-3">What I Work With</span>
+          <h2
+            className="text-[36px] md:text-[48px] font-bold text-white"
+            style={{ fontFamily: "Syne, sans-serif", letterSpacing: "-0.02em" }}
           >
-            <div className="text-5xl mb-4">{tool.icon}</div>
-            <p className="text-center text-sm font-semibold font-[MAINLUX-Bold] tracking-wide text-[#1e1e1e]">
-              {tool.name}
-            </p>
-          </motion.div>
-        ))}
-      </motion.div>
+            Tools & Skills
+          </h2>
+        </motion.div>
+
+        {/* ── Filter tabs ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="flex items-center gap-2 mb-12"
+          role="tablist"
+          aria-label="Filter skills by category"
+        >
+          {filters.map(({ label, value }) => {
+            const isActive = active === value;
+            return (
+              <button
+                key={value}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActive(value)}
+                className="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 font-[Karla]"
+                style={{
+                  backgroundColor: isActive
+                    ? "var(--accent)"
+                    : "rgba(255,255,255,0.05)",
+                  color: isActive ? "#000" : "rgba(255,255,255,0.5)",
+                  border: isActive
+                    ? "1px solid var(--accent)"
+                    : "1px solid rgba(255,255,255,0.08)",
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
+
+          {/* Backend badge — communicates "learning" honestly */}
+          {active === "backend" && (
+            <motion.span
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="ml-2 px-3 py-1 rounded-full text-xs font-mono"
+              style={{
+                backgroundColor: "rgba(229,99,55,0.1)",
+                border: "1px solid rgba(229,99,55,0.25)",
+                color: "var(--accent)",
+              }}
+            >
+              actively learning
+            </motion.span>
+          )}
+        </motion.div>
+
+        {/* ── Cards grid ── */}
+        <motion.div
+          key={active} // re-triggers stagger on filter change
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3"
+        >
+          {filtered.map((tool) => (
+            <motion.div
+              key={tool.name}
+              variants={cardVariants}
+              whileHover={{
+                y: -6,
+                borderColor: "rgba(229,99,55,0.4)",
+                backgroundColor: "rgba(229,99,55,0.05)",
+              }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="flex flex-col items-center justify-center gap-4 p-6 rounded-2xl"
+              style={{
+                backgroundColor: "var(--bg-card)",
+                border: "1px solid var(--border-subtle)",
+                minHeight: "160px",
+                cursor: "default",
+              }}
+            >
+              {/* Icon */}
+              <div className="flex items-center justify-center w-12 h-12">
+                {tool.icon}
+              </div>
+
+              {/* Name */}
+              <p
+                className="text-center text-[13px] font-semibold font-[MAINLUX-Bold] tracking-wide leading-tight"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                {tool.name}
+              </p>
+
+              {/* Backend badge on individual card */}
+              {tool.category === "backend" && (
+                <span
+                  className="text-[10px] font-mono px-2 py-0.5 rounded-full"
+                  style={{
+                    backgroundColor: "rgba(229,99,55,0.1)",
+                    color: "var(--accent)",
+                  }}
+                >
+                  learning
+                </span>
+              )}
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 };

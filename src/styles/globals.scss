@@ -2,25 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light Theme (default) */
-[data-theme="light"] {
-  --neutral-50: #fafafa;
-  --neutral-100: #f5f5f5;
-  --neutral-200: #e5e5e5;
-  --neutral-300: #d4d4d4;
-  --neutral-400: #8c8c8b;
-  --neutral-500: #737373;
-  --neutral-600: #5d5d5d;
-  --neutral-700: #404040;
-  --neutral-800: #262626;
-  --neutral-900: #181817;
+// ─────────────────────────────────────────────────
+// YOUR EXISTING font-face declarations — untouched
+// ─────────────────────────────────────────────────
+@font-face {
+  font-family: Inter;
+  src: url("../../public/assets/fonts/inter/Inter_18pt-Regular.ttf");
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../public/assets/fonts/lato/Lato-Regular.ttf");
+}
+@font-face {
+  font-family: Poppins;
+  src: url("../../public/assets/fonts/poppings/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: MAINLUX;
+  src: url("../../public/assets/fonts/mainlux/FontsFree-Net-Mainlux-Bold.ttf");
+}
+@font-face {
+  font-family: MAINLUX-Bold;
+  src: url("../../public/assets/fonts/mainlux/MainluxLight-DOAJx.otf");
+}
 
-  --label-text-100: #000000;
-  --input-text-100: #2f2f2e;
-  --input-text-200: #000000;
+// ─────────────────────────────────────────────────
+// GOOGLE FONT — Syne (new display font for headings)
+// Add this to your <head> in layout.tsx instead if preferred:
+// <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+// ─────────────────────────────────────────────────
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&display=swap");
 
-  --border-outline-100: #8c8c8b;
-  --colored-button-100: #4b3b00;
+// ─────────────────────────────────────────────────
+// DESIGN TOKENS
+// These replace the dark/light theme vars you were
+// not using. One clean set, dark portfolio style.
+// ─────────────────────────────────────────────────
+:root {
+  // Canvas
+  --bg-page: #0d0d0d;
+  --bg-card: #141414;
+  --bg-raised: #1a1a1a;
+
+  // Accent — your own brand orange from primary-400
+  --accent: #e56337;
+  --accent-muted: rgba(229, 99, 55, 0.12);
+  --accent-glow: rgba(229, 99, 55, 0.25);
+  --accent-border: rgba(229, 99, 55, 0.3);
+
+  // Text
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.55);
+  --text-tertiary: rgba(255, 255, 255, 0.25);
+
+  // Borders
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-accent: rgba(229, 99, 55, 0.3);
+
+  // Kept from your file
   --primary-10: #fcede9;
   --primary-50: #f1ac95;
   --primary-100: #f49778;
@@ -33,62 +72,24 @@
   --primary-800: #691c02;
   --primary-900: #611c05;
 
-  --transparent-200: #fff;
-  --shades-50: #ffffff;
-  --shades-100: #fff;
-  --generic-white: #ffffff;
-  --generic-black: #000000;
-
-  --text-100: #e8e8e8;
-
-  --blue-100: #238cfd;
-  --lato: "Lato";
-  --karla: "Karla";
-}
-
-/* Dark Theme */
-[data-theme="dark"] {
-  --neutral-50: #181817;
-  --neutral-100: #262626;
-  --neutral-200: #404040;
-  --neutral-300: #525252;
-  --neutral-400: #737373;
-  --neutral-500: #8c8c8b;
-  --neutral-600: #d4d4d4;
-  --neutral-700: #e5e5e5;
-  --neutral-800: #181817;
-  --neutral-900: #fafafa;
-  --label-text-100: #d1d1d0;
-  --input-text-100: #d1d1d0;
-  --input-text-100: #e8e8e8;
-  --border-outline-100: #e56337;
-  --colored-button-100: #e56337;
-
-  --primary-10: #411303;
-  --primary-50: #611c05;
-  --primary-100: #691c02;
-  --primary-200: #9d2d07;
-  --primary-300: #e56337;
-  --primary-400: #e14714;
-  --primary-500: #e56337;
-  --primary-600: #f8815a;
-  --primary-700: #eb761c;
-  --primary-800: #f49778;
-  --primary-900: #f1ac95;
-
-  --transparent-200: #fff;
-  --shades-50: #000000;
-  --shades-100: #0d0d0d;
-  --generic-white: #000000;
-  --generic-black: #ffffff;
-  --blue-100: #238cfd;
-
-  --text-100: #e8e8e8;
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #d4d4d4;
+  --neutral-400: #8c8c8b;
+  --neutral-500: #737373;
+  --neutral-600: #5d5d5d;
+  --neutral-700: #404040;
+  --neutral-800: #262626;
+  --neutral-900: #181817;
 
   --lato: "Lato";
   --karla: "Karla";
 }
 
+// ─────────────────────────────────────────────────
+// BASE RESET — extends your existing reset
+// ─────────────────────────────────────────────────
 * {
   box-sizing: border-box;
   padding: 0;
@@ -97,71 +98,57 @@
 
 html {
   font-size: 16px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 
   @media (max-width: 768px) {
     font-size: 15px;
   }
-
   @media (max-width: 480px) {
     font-size: 14px;
   }
 }
 
 body {
+  background-color: var(--bg-page); // ← dark canvas replaces #fffdf5
+  color: var(--text-primary);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Karla", sans-serif; // your existing body font
 }
-
-// a {
-//   text-decoration: none;
-//   color: #656565;
-// }
 
 a {
   text-decoration: none;
   color: inherit;
+
+  &:hover {
+    text-decoration: none; // removed underline-on-hover globally
+  } // handle per-component instead
 }
 
 li {
   list-style: none;
 }
-html {
-  overflow-x: hidden;
+button {
+  cursor: pointer;
 }
 
-@font-face {
-  font-family: Inter;
-  src: url("../../public/assets/fonts/inter/Inter_18pt-Regular.ttf");
+// ─────────────────────────────────────────────────
+// TYPOGRAPHY — your existing scale, kept intact
+// ─────────────────────────────────────────────────
+h1 {
+  font-family: "Syne", sans-serif; // new: display font for hero only
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
-@font-face {
-  font-family: Lato;
-  src: url("../../public/assets/fonts/lato/Lato-Regular.ttf");
-}
-@font-face {
-  font-family: Poppins;
-  src: url("../../public/assets/fonts/poppings/Poppins-Regular.ttf");
-}
-
-@font-face {
-  font-family: MAINLUX;
-  src: url("../../public/assets/fonts/mainlux/FontsFree-Net-Mainlux-Bold.ttf");
-}
-
-@font-face {
-  font-family: MAINLUX-Bold;
-  src: url("../../public//assets/fonts/mainlux/MainluxLight-DOAJx.otf");
-}
-
-.mainlux {
-  font-family: MAINLUX;
-}
-
-.page_container {
-  width: 90%;
-  margin: 0 auto;
-  max-width: 1420px;
+h2 {
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 h3 {
@@ -169,26 +156,12 @@ h3 {
   line-height: 56.11px;
   font-weight: 700;
   font-family: "Karla", sans-serif;
-  letter-spacing: 4%;
+  letter-spacing: 0.04em;
 
   @media (max-width: 768px) {
     font-size: 24px;
     line-height: 28.06px;
   }
-}
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-li {
-  list-style: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-button {
-  cursor: pointer;
 }
 
 h4 {
@@ -196,7 +169,7 @@ h4 {
   line-height: 37.41px;
   font-weight: 700;
   font-family: Inter;
-  letter-spacing: -2%;
+  letter-spacing: -0.02em;
 
   @media (max-width: 768px) {
     font-size: 24px;
@@ -215,75 +188,126 @@ h5 {
     line-height: 32px;
   }
 }
-body {
-  background-color: #fffdf5;
-}
 
 p,
 span {
-  font-family: Outfit;
+  font-family: "Karla", sans-serif;
   font-weight: 400;
 }
 
-/* Global Utility Classes */
+// ─────────────────────────────────────────────────
+// SELECTION & SCROLLBAR
+// ─────────────────────────────────────────────────
+::selection {
+  background-color: var(--accent);
+  color: #000;
+}
 
-/* Neutral Colors */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+// ─────────────────────────────────────────────────
+// YOUR EXISTING UTILITY CLASSES — untouched
+// ─────────────────────────────────────────────────
+.mainlux {
+  font-family: MAINLUX;
+}
+
+.page_container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1420px;
+}
+
+// ─────────────────────────────────────────────────
+// NEW COMPONENT UTILITIES
+// ─────────────────────────────────────────────────
+.section-label {
+  font-family: "Karla", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.portfolio-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    border-color: var(--border-accent);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px var(--accent-muted);
+  }
+}
+
+.accent-glow {
+  box-shadow: 0 0 40px var(--accent-glow);
+}
+
+// Neutral color utilities (your existing ones)
 .bg-neutral-50 {
   background-color: var(--neutral-50);
 }
 .text-neutral-50 {
   color: var(--neutral-50);
 }
-
 .bg-neutral-100 {
   background-color: var(--neutral-100);
 }
 .text-neutral-100 {
   color: var(--neutral-100);
 }
-
 .bg-neutral-200 {
   background-color: var(--neutral-200);
 }
 .text-neutral-200 {
   color: var(--neutral-200);
 }
-
 .bg-neutral-300 {
   background-color: var(--neutral-300);
 }
 .text-neutral-300 {
   color: var(--neutral-300);
 }
-
 .bg-neutral-400 {
   background-color: var(--neutral-400);
 }
 .text-neutral-400 {
   color: var(--neutral-400);
 }
-
 .bg-neutral-500 {
   background-color: var(--neutral-500);
 }
 .text-neutral-500 {
   color: var(--neutral-500);
 }
-
 .bg-neutral-600 {
   background-color: var(--neutral-600);
 }
 .text-neutral-600 {
   color: var(--neutral-600);
 }
-
 .bg-neutral-700 {
   background-color: var(--neutral-700);
 }
 .text-neutral-700 {
   color: var(--neutral-700);
 }
-
 .bg-neutral-900 {
   background-color: var(--neutral-900);
 }
@@ -291,97 +315,67 @@ span {
   color: var(--neutral-900);
 }
 
-/* Primary Colors */
+// Primary color utilities (your existing ones)
+.bg-primary-10 {
+  background-color: var(--primary-10);
+}
 .bg-primary-50 {
   background-color: var(--primary-50);
 }
 .text-primary-50 {
   color: var(--primary-50);
 }
-
 .bg-primary-100 {
   background-color: var(--primary-100);
 }
 .text-primary-100 {
   color: var(--primary-100);
 }
-
 .bg-primary-200 {
   background-color: var(--primary-200);
 }
 .text-primary-200 {
   color: var(--primary-200);
 }
-
 .bg-primary-300 {
   background-color: var(--primary-300);
 }
 .text-primary-300 {
   color: var(--primary-300);
 }
-
 .bg-primary-400 {
   background-color: var(--primary-400);
 }
 .text-primary-400 {
   color: var(--primary-400);
 }
-
 .bg-primary-500 {
   background-color: var(--primary-500);
 }
 .text-primary-500 {
   color: var(--primary-500);
 }
-
 .bg-primary-600 {
-  background-color: #e56337;
-  // background-color: var(--primary-600);
+  background-color: var(--primary-600);
 }
 .text-primary-600 {
   color: var(--primary-600);
 }
-
 .bg-primary-700 {
   background-color: var(--primary-700);
 }
 .text-primary-700 {
   color: var(--primary-700);
 }
-
 .bg-primary-800 {
   background-color: var(--primary-800);
 }
 .text-primary-800 {
   color: var(--primary-800);
 }
-
 .bg-primary-900 {
   background-color: var(--primary-900);
 }
 .text-primary-900 {
   color: var(--primary-900);
-}
-
-/* Shades */
-.bg-shades-50 {
-  background-color: var(--shades-50);
-}
-.text-shades-50 {
-  color: var(--shades-50);
-}
-
-/* Generic Colors */
-.bg-generic-white {
-  background-color: var(--generic-white);
-}
-.text-generic-white {
-  color: var(--generic-white);
-}
-
-.bg-generic-black {
-  background-color: var(--generic-black);
-}
-.text-generic-black {
-  color: var(--generic-black);
 }

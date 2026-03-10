@@ -4,9 +4,11 @@ import About from "./component/about-us";
 import Project from "./component/project";
 import ToolsSection from "./component/professional-rle";
 
+
 const InfoPage = () => {
   return (
     <div className="flex flex-col gap-[2rem] min-h-screen lg:gap-[3rem]">
+
       <Hero />
       <div className="flex flex-col gap-[2rem] min-h-screen lg:gap-[3rem]">
         <About />
