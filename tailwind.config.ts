@@ -15,7 +15,11 @@ const config: Config = {
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
+        karla: ["Karla", "sans-serif"],
+        syne: ["Syne", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
+        mainlux: ["MAINLUX", "sans-serif"],
+        mainluxBold: ["MAINLUX-Bold", "sans-serif"],
         openSans: ["Open Sans", "sans-serif"],
       },
       screens: {

@@ -512,6 +512,7 @@ const Footer = () => {
 
   return (
     <motion.footer
+      id="contact"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -541,14 +542,14 @@ const Footer = () => {
         }}
       />
 
-      <div className="relative z-10 page_container py-10 md:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      <div className="relative z-10 page_container py-10 md:py-16 lg:py-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-10 lg:gap-12 items-start">
           {/* ── Col 1: Brand ── */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="flex flex-col items-center lg:items-start"
+            className="flex flex-col items-center md:items-start lg:items-start"
           >
             <motion.div whileHover={{ scale: 1.05 }} className="relative mb-6">
               <Image
@@ -582,7 +583,7 @@ const Footer = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-sm md:text-base text-center lg:text-left mb-6 max-w-xs font-[Karla]"
+              className="text-sm md:text-base text-center md:text-left lg:text-left mb-6 max-w-xs md:max-w-sm font-[Karla]"
               style={{ color: "var(--text-secondary)" }}
             >
               Crafting exceptional digital experiences with modern web
@@ -620,7 +621,7 @@ const Footer = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center md:items-start lg:items-center"
           >
             <h3
               className="font-[Karla] font-semibold text-white text-base mb-6 tracking-[0.15em]"
@@ -629,7 +630,7 @@ const Footer = () => {
               CONNECT WITH ME
             </h3>
 
-            <div className="space-y-3 w-full max-w-[220px]">
+            <div className="space-y-3 w-full max-w-[220px] md:max-w-[260px]">
               {FOOTER_LINKS.map((link, i) => {
                 const Icon = link.icon;
                 const isHovered = hoveredIndex === i;
@@ -686,7 +687,7 @@ const Footer = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-col items-center lg:items-end"
+            className="flex flex-col items-center md:col-span-2 md:items-center lg:col-span-1 lg:items-end"
           >
             <h3 className="font-[Karla] font-semibold text-white text-base mb-6 tracking-[0.15em]">
               LET&apos;S WORK TOGETHER
@@ -735,7 +736,7 @@ const Footer = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="mt-8 text-sm text-center lg:text-right font-[Karla]"
+              className="mt-8 text-sm text-center md:max-w-xl lg:max-w-none lg:text-right font-[Karla]"
               style={{ color: "var(--text-secondary)" }}
             >
               Available for freelance projects and full-time opportunities
@@ -748,7 +749,7 @@ const Footer = () => {
           initial={{ width: 0 }}
           animate={{ width: "100%" }}
           transition={{ delay: 0.6, duration: 1 }}
-          className="h-px my-10"
+          className="h-px my-10 md:my-12 lg:my-10"
           style={{
             background:
               "linear-gradient(to right, transparent, rgba(229,99,55,0.3), transparent)",
@@ -760,7 +761,7 @@ const Footer = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
-          className="flex flex-col md:flex-row justify-between items-center gap-6"
+          className="flex flex-col lg:flex-row justify-between items-center gap-6 md:gap-7 lg:gap-6"
         >
           {/* Location + live clock */}
           <div
@@ -775,7 +776,7 @@ const Footer = () => {
           {/* Email — large, centred */}
           <a
             href="mailto:olaoluwayusuf121@gmail.com"
-            className="font-[MAINLUX-Bold] text-xl md:text-2xl transition-colors duration-300"
+            className="font-[MAINLUX-Bold] text-xl lg:text-2xl transition-colors duration-300 text-center break-all md:break-normal"
             style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.color =
@@ -790,7 +791,7 @@ const Footer = () => {
           </a>
 
           {/* Social icon pills */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-center lg:justify-end gap-2">
             {FOOTER_LINKS.map((link, i) => {
               const Icon = link.icon;
               return (

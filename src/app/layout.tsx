@@ -28,13 +28,6 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {/*
-          CurvedLine sits as a fixed full-screen layer at z-0.
-          Everything else stacks above it at z-10+.
-          It is "use client" so it runs only in the browser —
-          the layout itself stays a Server Component.
-        */}
-
         <Navbar />
         <main className="relative z-10">{children}</main>
         <Footer />

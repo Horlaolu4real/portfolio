@@ -1,302 +1,3 @@
-// "use client";
-// import React, { useEffect, useState } from "react";
-// import { usePathname } from "next/navigation";
-// import { motion, AnimatePresence, Variants } from "framer-motion";
-// import Link from "next/link";
-// const containerVariants: Variants = {
-//   hidden: { opacity: 0 },
-//   visible: {
-//     opacity: 1,
-//     transition: {
-//       staggerChildren: 0.1,
-//       delayChildren: 0.2,
-//     },
-//   },
-// };
-
-// const itemVariants: Variants = {
-//   hidden: { opacity: 0, y: -20 },
-//   visible: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       type: "spring",
-//       stiffness: 300,
-//       damping: 25,
-//     },
-//   },
-// };
-
-// const mobileMenuVariants: Variants = {
-//   closed: {
-//     opacity: 0,
-//     x: "100%",
-//     transition: {
-//       duration: 0.3,
-//       ease: "easeInOut",
-//     },
-//   },
-//   open: {
-//     opacity: 1,
-//     x: 0,
-//     transition: {
-//       duration: 0.4,
-//       ease: "easeOut",
-//       staggerChildren: 0.1,
-//       delayChildren: 0.1,
-//     },
-//   },
-// };
-
-// const mobileItemVariants: Variants = {
-//   closed: { opacity: 0, x: 20 },
-//   open: {
-//     opacity: 1,
-//     x: 0,
-//     transition: {
-//       type: "spring",
-//       stiffness: 200,
-//       damping: 20,
-//     },
-//   },
-// };
-
-// const Navbar: React.FC = () => {
-//   const [menuOpen, setMenuOpen] = useState(false);
-//   const [isScrolled, setIsScrolled] = useState(false);
-//   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-//   const [hash, setHash] = useState<string>("");
-//   const pathname = usePathname();
-
-//   useEffect(() => {
-//     setMenuOpen(false);
-//   }, [pathname]);
-
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       setIsScrolled(window.scrollY > 50);
-//     };
-//     window.addEventListener("scroll", handleScroll);
-//     handleScroll();
-//     return () => window.removeEventListener("scroll", handleScroll);
-//   }, []);
-//   useEffect(() => {
-//     const updateHash = () => setHash(window.location.hash || "");
-//     window.addEventListener("hashchange", updateHash);
-//     updateHash();
-//     return () => window.removeEventListener("hashchange", updateHash);
-//   }, []);
-
-//   const navList = [
-//     { name: "Home", link: "/" },
-//     { name: "About", link: "/#about" },
-//     { name: "Projects", link: "/#projects" },
-//     { name: "Contact", link: "/#details" },
-//   ];
-
-//   return (
-//     <>
-//       <motion.nav
-//         initial={{ y: -100, opacity: 0 }}
-//         animate={{ y: 0, opacity: 1 }}
-//         transition={{ duration: 0.5, ease: "easeOut" }}
-//         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-//           isScrolled || menuOpen
-//             ? "backdrop-blur-xl bg-black/60 border-b border-white/10 shadow-[0_6px_30px_rgba(0,0,0,0.35)] py-2"
-//             : "bg-transparent py-4"
-//         }`}
-//       >
-//         <div className="max-w-[1440px] mx-auto px-4 flex items-center justify-between h-16">
-//           <motion.div
-//             whileHover={{ scale: 1.05 }}
-//             whileTap={{ scale: 0.95 }}
-//             className="relative"
-//           >
-//             <Link
-//               href="/"
-//               className="hover:no-underline font-[MAINLUX-Bold] text-2xl relative group"
-//               style={{ textDecoration: "none" }}
-//             >
-//               <span
-//                 className={
-//                   isScrolled
-//                     ? "text-white"
-//                     : "bg-gradient-to-r from-cyan-200 via-white to-purple-200 bg-clip-text text-transparent"
-//                 }
-//               >
-//                 Olaoluwa
-//               </span>
-//               <motion.span
-//                 className="absolute inset-0 -z-10 blur-xl opacity-0 group-hover:opacity-30"
-//                 animate={{
-//                   background: [
-//                     "radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.3), transparent 50%)",
-//                     "radial-gradient(circle at 70% 50%, rgba(139, 92, 246, 0.3), transparent 50%)",
-//                     "radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.3), transparent 50%)",
-//                   ],
-//                 }}
-//                 transition={{
-//                   duration: 3,
-//                   repeat: Infinity,
-//                   ease: "easeInOut",
-//                 }}
-//               />
-//             </Link>
-//           </motion.div>
-//           <motion.div
-//             variants={containerVariants}
-//             initial="hidden"
-//             animate="visible"
-//             className="hidden lg:flex items-center gap-8"
-//           >
-//             {navList.map((item, index) => (
-//               <motion.div
-//                 key={item.name}
-//                 variants={itemVariants}
-//                 onMouseEnter={() => setHoveredItem(index)}
-//                 onMouseLeave={() => setHoveredItem(null)}
-//                 className="relative"
-//               >
-//                 <Link
-//                   href={item.link}
-//                   className="relative font-[Inter] text-[18px] font-medium tracking-wide px-2 py-1 rounded-lg transition-all duration-300"
-//                   style={{ textDecoration: "none" }}
-//                 >
-//                   <span
-//                     className={`relative z-10 ${
-//                       (
-//                         item.link.includes("#")
-//                           ? hash === item.link.slice(item.link.indexOf("#"))
-//                           : pathname === item.link
-//                       )
-//                         ? "text-cyan-300"
-//                         : "text-gray-300 hover:text-white"
-//                     }`}
-//                   >
-//                     {item.name}
-//                   </span>
-//                   {(item.link.includes("#")
-//                     ? hash === item.link.slice(item.link.indexOf("#"))
-//                     : pathname === item.link) && (
-//                     <motion.div
-//                       layoutId="activeIndicator"
-//                       className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500"
-//                       initial={{ opacity: 0 }}
-//                       animate={{ opacity: 1 }}
-//                       transition={{ duration: 0.3 }}
-//                     />
-//                   )}
-//                 </Link>
-//               </motion.div>
-//             ))}
-//           </motion.div>
-//           <motion.button
-//             aria-label={menuOpen ? "Close menu" : "Open menu"}
-//             className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm"
-//             onClick={() => setMenuOpen(!menuOpen)}
-//             whileHover={{ scale: 1.05 }}
-//             whileTap={{ scale: 0.95 }}
-//             animate={{ rotate: menuOpen ? 180 : 0 }}
-//             transition={{ duration: 0.3 }}
-//           >
-//             <div className="relative w-6 h-5">
-//               <motion.span
-//                 className="absolute left-0 w-6 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400"
-//                 animate={{
-//                   top: menuOpen ? "50%" : "0%",
-//                   rotate: menuOpen ? 45 : 0,
-//                 }}
-//                 transition={{ duration: 0.3 }}
-//               />
-//               <motion.span
-//                 className="absolute left-0 w-6 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400"
-//                 animate={{
-//                   top: "50%",
-//                   opacity: menuOpen ? 0 : 1,
-//                 }}
-//                 transition={{ duration: 0.3 }}
-//               />
-//               <motion.span
-//                 className="absolute left-0 w-6 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400"
-//                 animate={{
-//                   top: menuOpen ? "50%" : "100%",
-//                   rotate: menuOpen ? -45 : 0,
-//                 }}
-//                 transition={{ duration: 0.3 }}
-//               />
-//             </div>
-//           </motion.button>
-//         </div>
-//         <motion.div
-//           className="absolute bottom-0 left-0 right-0 h-px"
-//           animate={{ opacity: [0.4, 1, 0.4] }}
-//           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-//           style={{
-//             background:
-//               "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
-//           }}
-//         />
-//       </motion.nav>
-//       <AnimatePresence>
-//         {menuOpen && (
-//           <motion.div
-//             initial="closed"
-//             animate="open"
-//             exit="closed"
-//             variants={mobileMenuVariants}
-//             className="fixed inset-0 z-40 lg:hidden"
-//             style={{
-//               background:
-//                 "linear-gradient(135deg, rgba(17,24,39,0.98) 0%, rgba(3,7,18,0.98) 100%)",
-//               backdropFilter: "blur(20px)",
-//             }}
-//           >
-//             <div className="relative h-full flex flex-col items-center justify-center px-6">
-//               <motion.button
-//                 aria-label="Close menu"
-//                 className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center"
-//                 onClick={() => setMenuOpen(false)}
-//                 whileHover={{ scale: 1.1 }}
-//                 whileTap={{ scale: 0.9 }}
-//               >
-//                 <span className="text-2xl text-white">×</span>
-//               </motion.button>
-//               <motion.div className="flex flex-col items-center gap-8">
-//                 {navList.map((item) => (
-//                   <motion.div
-//                     key={item.name}
-//                     variants={mobileItemVariants}
-//                     className="relative"
-//                   >
-//                     <Link
-//                       href={item.link}
-//                       onClick={() => setMenuOpen(false)}
-//                       className="relative text-2xl font-medium tracking-wide px-4 py-2 rounded-lg transition-all duration-300 block"
-//                       style={{ textDecoration: "none" }}
-//                     >
-//                       <span
-//                         className={`relative z-10 ${
-//                           pathname === item.link
-//                             ? "bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent"
-//                             : "text-white hover:text-gray-300"
-//                         }`}
-//                       >
-//                         {item.name}
-//                       </span>
-//                     </Link>
-//                   </motion.div>
-//                 ))}
-//               </motion.div>
-//             </div>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-//     </>
-//   );
-// };
-
-// export default Navbar;
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -318,15 +19,15 @@ const NAV_LINKS: NavLink[] = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [activeLink, setActiveLink] = useState<string>("Home");
+  const [activeLink, setActiveLink] = useState<string>("#home");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -334,106 +35,93 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const sections = NAV_LINKS.map((item) => document.querySelector(item.href)).filter(
+      Boolean
+    ) as Element[];
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target?.id) {
+          setActiveLink(`#${visible.target.id}`);
+        }
+      },
+      { threshold: [0.25, 0.5, 0.7], rootMargin: "-30% 0px -40% 0px" }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <motion.header
       initial={{ y: -72, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      className={[
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled
-          ? "bg-[#0d0d0d]/75 backdrop-blur-[20px] border-b border-white/[0.07] shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-          : "bg-transparent",
-      ].join(" ")}
+      animate={scrolled ? { y: 0, opacity: 1 } : { y: -8, opacity: 0.92 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed top-0 left-0 right-0 z-50"
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="page_container flex items-center justify-between py-5">
-        {/* ── Logo ── */}
+      <div className="page_container flex items-center justify-between py-4">
         <Link
           href="#home"
-          onClick={() => setActiveLink("Home")}
-          className="flex items-center gap-1 text-white font-bold text-xl tracking-tight group"
+          onClick={() => setActiveLink("#home")}
+          className="group inline-flex items-center gap-2 px-1 py-2 text-sm text-white/90 transition-all duration-300"
         >
-          <span
-            className="text-[--accent] transition-transform duration-300 group-hover:-translate-x-0.5"
-            style={{ color: "var(--accent)" }}
-          >
-            {"<"}
-          </span>
-          <span className="font-syne">Olaoluwa Yusuf</span>
-          <span
-            className="text-[--accent] transition-transform duration-300 group-hover:translate-x-0.5"
-            style={{ color: "var(--accent)" }}
-          >
-            {"/>"}
-          </span>
+          <span className="h-2 w-2 rounded-full bg-[--accent] transition-transform duration-300 group-hover:scale-125" />
+          <span className="font-syne text-base tracking-wide">Olaoluwa</span>
         </Link>
 
-        {/* ── Desktop links ── */}
         <nav
           className="hidden md:flex items-center gap-8"
           aria-label="Desktop nav"
         >
           {NAV_LINKS.map(({ label, href }) => {
-            const isActive = activeLink === label;
+            const isActive = activeLink === href;
             return (
               <a
                 key={label}
                 href={href}
-                onClick={() => setActiveLink(label)}
-                className="relative text-sm font-medium transition-colors duration-300 group"
-                style={{
-                  color: isActive ? "#fff" : "rgba(255,255,255,0.55)",
-                }}
+                onClick={() => setActiveLink(href)}
+                className={[
+                  "relative px-1 py-2 text-sm font-medium transition-all duration-300",
+                  isActive
+                    ? "text-white"
+                    : "text-white/60 hover:text-white",
+                ].join(" ")}
               >
                 {label}
-                {/* Sliding underline */}
                 <span
-                  className="absolute -bottom-1 left-0 h-px transition-all duration-300"
-                  style={{
-                    width: isActive ? "100%" : "0%",
-                    backgroundColor: "var(--accent)",
-                  }}
+                  className={[
+                    "absolute -bottom-0.5 left-0 h-px bg-[--accent] transition-all duration-300",
+                    isActive ? "w-full opacity-100" : "w-0 opacity-0",
+                  ].join(" ")}
                 />
-                {/* Hover underline via CSS */}
-                <style>{`
-                  a[href="${href}"]:hover span { width: 100% !important; }
-                  a[href="${href}"]:hover { color: #fff !important; }
-                `}</style>
               </a>
             );
           })}
         </nav>
 
-        {/* ── CTA ── */}
         <motion.a
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
-          className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
-          style={{
-            border: "1px solid rgba(229, 99, 55, 0.4)",
-            color: "var(--accent)",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-              "rgba(229,99,55,0.1)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-              "transparent";
-          }}
+          className="hidden md:inline-flex items-center gap-2 rounded-full border border-[color:var(--accent)]/40 px-5 py-2.5 text-sm font-semibold text-[color:var(--accent)] transition-all duration-300 hover:border-[color:var(--accent)] hover:text-white"
         >
           Resume ↗
         </motion.a>
 
-        {/* ── Hamburger ── */}
         <button
           onClick={() => setMenuOpen((prev) => !prev)}
-          className="md:hidden flex flex-col justify-center gap-[5px] w-8 h-8 p-1"
+          className="md:hidden flex h-10 w-10 flex-col justify-center gap-[5px] p-2"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
         >
@@ -465,12 +153,12 @@ export default function Navbar() {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="md:hidden overflow-hidden border-t"
             style={{
-              backgroundColor: "rgba(13,13,13,0.95)",
+              backgroundColor: "rgba(13,13,13,0.96)",
               backdropFilter: "blur(20px)",
               borderColor: "rgba(255,255,255,0.07)",
             }}
           >
-            <ul className="page_container flex flex-col py-6 gap-6">
+            <ul className="page_container flex flex-col gap-4 py-6">
               {NAV_LINKS.map(({ label, href }, i) => (
                 <motion.li
                   key={label}
@@ -481,10 +169,15 @@ export default function Navbar() {
                   <a
                     href={href}
                     onClick={() => {
-                      setActiveLink(label);
+                      setActiveLink(href);
                       setMenuOpen(false);
                     }}
-                    className="text-lg font-medium text-white/70 hover:text-white transition-colors"
+                    className={[
+                      "block rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                      activeLink === href
+                        ? "bg-white/[0.08] text-white"
+                        : "text-white/70 hover:bg-white/[0.04] hover:text-white",
+                    ].join(" ")}
                   >
                     {label}
                   </a>

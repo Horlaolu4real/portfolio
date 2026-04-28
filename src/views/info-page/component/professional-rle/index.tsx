@@ -13,7 +13,6 @@ import {
   SiJsonwebtokens,
   SiMongodb,
 } from "react-icons/si";
-import CurvedLine from "@/components/curvy-line-effect";
 
 interface Tool {
   name: string;
@@ -125,7 +124,6 @@ const ToolsSection = () => {
       className="relative w-full py-24 md:py-32 overflow-hidden"
       style={{ backgroundColor: "var(--bg-page)" }}
     >
-      <CurvedLine />
       {/* Ambient glow */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full blur-[120px] pointer-events-none"

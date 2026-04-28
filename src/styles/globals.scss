@@ -7,23 +7,23 @@
 // ─────────────────────────────────────────────────
 @font-face {
   font-family: Inter;
-  src: url("../../public/assets/fonts/inter/Inter_18pt-Regular.ttf");
+  src: url("/assets/fonts/inter/Inter_18pt-Regular.ttf");
 }
 @font-face {
   font-family: Lato;
-  src: url("../../public/assets/fonts/lato/Lato-Regular.ttf");
+  src: url("/assets/fonts/lato/Lato-Regular.ttf");
 }
 @font-face {
   font-family: Poppins;
-  src: url("../../public/assets/fonts/poppings/Poppins-Regular.ttf");
+  src: url("/assets/fonts/poppings/Poppins-Regular.ttf");
 }
 @font-face {
   font-family: MAINLUX;
-  src: url("../../public/assets/fonts/mainlux/FontsFree-Net-Mainlux-Bold.ttf");
+  src: url("/assets/fonts/mainlux/FontsFree-Net-Mainlux-Bold.ttf");
 }
 @font-face {
   font-family: MAINLUX-Bold;
-  src: url("../../public/assets/fonts/mainlux/MainluxLight-DOAJx.otf");
+  src: url("/assets/fonts/mainlux/MainluxLight-DOAJx.otf");
 }
 
 // ─────────────────────────────────────────────────
@@ -31,7 +31,7 @@
 // Add this to your <head> in layout.tsx instead if preferred:
 // <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet" />
 // ─────────────────────────────────────────────────
-@import url("https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap");
 
 // ─────────────────────────────────────────────────
 // DESIGN TOKENS
