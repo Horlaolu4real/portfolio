@@ -1,12 +1,14 @@
 "use client";
-import React from "react";
-import { motion, Variants } from "framer-motion";
+import { useState, useCallback } from "react";
+import { motion, Variants, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 interface Project {
   title: string;
   url: string;
   techs: string[];
   number: string;
+  screenshot: string;
 }
 
 const projects: Project[] = [
@@ -15,31 +17,35 @@ const projects: Project[] = [
     url: "https://www.clubarant.com/",
     techs: ["Next.js", "Tailwind", "Framer Motion"],
     number: "01",
+    screenshot: "/projects/clubarant.png",
   },
   {
     title: "Rogue Dev",
     url: "https://www.roguedevtech.com/",
     techs: ["React", "SCSS", "Animations"],
     number: "02",
-  },
-  {
-    title: "TodoApp",
-    url: "https://todoweb-lake.vercel.app/",
-    techs: ["Next.js", "Module SCSS"],
-    number: "03",
+    screenshot: "/projects/roguedev.png",
   },
   {
     title: "Bricklage",
     url: "https://www.bricklage.com/",
     techs: ["Next.js", "SCSS", "Deploy"],
-    number: "04",
+    number: "03",
+    screenshot: "/projects/bricklage.png",
   },
-
   {
-    title: "Right care Founder",
+    title: "Right Care Finder",
     url: "https://www.rightcarefinder.co.uk/",
     techs: ["Next.js", "SCSS", "Deploy"],
+    number: "04",
+    screenshot: "/projects/rightcare.png",
+  },
+  {
+    title: "TBII",
+    url: "https://tbii.ca/",
+    techs: ["Next.js", "E-Commerce", "TypeScript"],
     number: "05",
+    screenshot: "/projects/tbii.png",
   },
 ];
 
@@ -61,7 +67,13 @@ const headingVariants: Variants = {
   },
 };
 
-const ProjectRow = ({ project }: { project: Project }) => {
+interface ProjectRowProps {
+  project: Project;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}
+
+const ProjectRow = ({ project, onMouseEnter, onMouseLeave }: ProjectRowProps) => {
   return (
     <motion.div
       variants={rowVariants}
@@ -69,11 +81,12 @@ const ProjectRow = ({ project }: { project: Project }) => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       className="group w-full py-8 md:py-10 cursor-pointer"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <div className="flex items-center justify-between gap-6">
         {/* Left: number + title */}
         <div className="flex items-center gap-5 md:gap-8 min-w-0">
-          {/* Index number */}
           <span
             className="hidden sm:block text-xs font-mono shrink-0 transition-colors duration-300"
             style={{
@@ -84,13 +97,11 @@ const ProjectRow = ({ project }: { project: Project }) => {
             {project.number}
           </span>
 
-          {/* Project title */}
           <motion.h3
             whileHover={{ x: 6 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="font-[MAINLUX-Bold] text-[36px] md:text-[60px] lg:text-[76px] leading-none truncate transition-all duration-300"
             style={{
-              // Default: muted gradient
               background:
                 "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 100%)",
               WebkitBackgroundClip: "text",
@@ -118,7 +129,6 @@ const ProjectRow = ({ project }: { project: Project }) => {
 
         {/* Right: tech pills + CTA */}
         <div className="flex flex-col items-end gap-3 shrink-0">
-          {/* Visit site button */}
           <motion.a
             href={project.url}
             target="_blank"
@@ -146,7 +156,6 @@ const ProjectRow = ({ project }: { project: Project }) => {
             VISIT SITE ↗
           </motion.a>
 
-          {/* Tech stack pills */}
           <div className="flex flex-wrap justify-end gap-1.5">
             {project.techs.map((tech) => (
               <span
@@ -165,7 +174,6 @@ const ProjectRow = ({ project }: { project: Project }) => {
         </div>
       </div>
 
-      {/* Divider — glows on hover via group */}
       <div
         className="mt-8 h-px transition-all duration-500"
         style={{
@@ -178,18 +186,65 @@ const ProjectRow = ({ project }: { project: Project }) => {
 };
 
 const Projects = () => {
+  const [hoveredProject, setHoveredProject] = useState<Project | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
+  }, []);
+
   return (
     <section
       id="projects"
       className="relative w-full py-24 md:py-32"
       style={{ backgroundColor: "var(--bg-page)" }}
+      onMouseMove={handleMouseMove}
     >
-      {/* Subtle background glow */}
+      {/* Background glow */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-[120px] pointer-events-none"
         style={{ backgroundColor: "rgba(229,99,55,0.04)" }}
         aria-hidden
       />
+
+      {/* Floating screenshot preview — desktop only, follows cursor */}
+      <div
+        className="fixed pointer-events-none z-50 hidden md:block"
+        style={{
+          left: mousePos.x + 28,
+          top: mousePos.y - 110,
+        }}
+      >
+        <AnimatePresence mode="wait">
+          {hoveredProject && (
+            <motion.div
+              key={hoveredProject.title}
+              initial={{ opacity: 0, scale: 0.88, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.88, y: 12 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div
+                className="w-[480px] h-[280px] rounded-xl overflow-hidden"
+                style={{
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  boxShadow:
+                    "0 24px 64px rgba(0,0,0,0.7), 0 0 0 1px rgba(229,99,55,0.12)",
+                }}
+              >
+                <Image
+                  src={hoveredProject.screenshot}
+                  alt={hoveredProject.title}
+                  width={300}
+                  height={190}
+                  className="object-cover w-full h-full"
+                  unoptimized
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       <div className="page_container relative">
         {/* Section header */}
@@ -212,7 +267,12 @@ const Projects = () => {
         {/* Project rows */}
         <div className="w-full">
           {projects.map((project) => (
-            <ProjectRow key={project.title} project={project} />
+            <ProjectRow
+              key={project.title}
+              project={project}
+              onMouseEnter={() => setHoveredProject(project)}
+              onMouseLeave={() => setHoveredProject(null)}
+            />
           ))}
         </div>
       </div>

@@ -38,7 +38,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-[auto] md:min-h-screen flex items-center overflow-hidden"
       style={{ backgroundColor: "var(--bg-page)" }}
     >
       {/* ── Background atmosphere ── */}
@@ -64,7 +64,7 @@ export default function Hero() {
       </div>
 
       {/* ── Content ── */}
-      <div className="page_container relative py-40">
+      <div className="page_container relative py-20 md:py-40">
         <motion.div
           variants={container}
           initial="hidden"
@@ -95,9 +95,9 @@ export default function Hero() {
             className="text-[clamp(3.2rem,8vw,6.5rem)] font-extrabold text-white mb-5"
             style={{ fontFamily: "Syne, sans-serif" }}
           >
-            Frontend
+            Software
             <br />
-            <span style={{ color: "var(--accent)" }}>Engineer.</span>
+            <span style={{ color: "var(--accent)" }}>Developer.</span>
           </motion.h1>
 
           {/* Sub-copy */}

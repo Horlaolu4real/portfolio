@@ -12,12 +12,15 @@ import {
   SiExpress,
   SiJsonwebtokens,
   SiMongodb,
+  SiPostgresql,
+  SiHeroku,
+  SiRender,
 } from "react-icons/si";
 
 interface Tool {
   name: string;
   icon: React.ReactNode;
-  category: "frontend" | "backend";
+  category: "frontend" | "backend" | "deployment";
 }
 
 const TOOLS: Tool[] = [
@@ -88,9 +91,25 @@ const TOOLS: Tool[] = [
     icon: <SiMongodb color="#47A248" size={44} />,
     category: "backend",
   },
+  {
+    name: "PostgreSQL",
+    icon: <SiPostgresql color="#336791" size={44} />,
+    category: "backend",
+  },
+  // ── Deployment ────────────────────────────
+  {
+    name: "Render",
+    icon: <SiRender color="#46E3B7" size={44} />,
+    category: "deployment",
+  },
+  {
+    name: "Heroku",
+    icon: <SiHeroku color="#430098" size={44} />,
+    category: "deployment",
+  },
 ];
 
-type Filter = "all" | "frontend" | "backend";
+type Filter = "all" | "frontend" | "backend" | "deployment";
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -116,6 +135,7 @@ const ToolsSection = () => {
     { label: "All", value: "all" },
     { label: "Frontend", value: "frontend" },
     { label: "Backend", value: "backend" },
+    { label: "Deployment", value: "deployment" },
   ];
 
   return (
@@ -183,21 +203,6 @@ const ToolsSection = () => {
             );
           })}
 
-          {/* Backend badge — communicates "learning" honestly */}
-          {active === "backend" && (
-            <motion.span
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="ml-2 px-3 py-1 rounded-full text-xs font-mono"
-              style={{
-                backgroundColor: "rgba(229,99,55,0.1)",
-                border: "1px solid rgba(229,99,55,0.25)",
-                color: "var(--accent)",
-              }}
-            >
-              actively learning
-            </motion.span>
-          )}
         </motion.div>
 
         {/* ── Cards grid ── */}
@@ -239,18 +244,6 @@ const ToolsSection = () => {
                 {tool.name}
               </p>
 
-              {/* Backend badge on individual card */}
-              {tool.category === "backend" && (
-                <span
-                  className="text-[10px] font-mono px-2 py-0.5 rounded-full"
-                  style={{
-                    backgroundColor: "rgba(229,99,55,0.1)",
-                    color: "var(--accent)",
-                  }}
-                >
-                  learning
-                </span>
-              )}
             </motion.div>
           ))}
         </motion.div>
