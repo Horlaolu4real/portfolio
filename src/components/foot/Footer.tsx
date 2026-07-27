@@ -406,7 +406,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { motion, useMotionValue } from "framer-motion";
-import { FiMail, FiLinkedin, FiGithub, FiDownload } from "react-icons/fi";
+import { FiMail, FiLinkedin, FiGithub, FiDownload, FiPhone } from "react-icons/fi";
+import { FaWhatsapp, FaXTwitter } from "react-icons/fa6";
 import { SiNextdotjs, SiReact, SiTailwindcss } from "react-icons/si";
 import logo from "@/components/images/logo-size.webp";
 
@@ -415,6 +416,14 @@ interface FooterLink {
   label: string;
   href: string;
   icon: React.ElementType;
+  /** Optional brand accent used on hover (falls back to --accent). */
+  brand?: string;
+}
+
+interface PhoneNumber {
+  label: string; // network / line label, e.g. "Glo"
+  display: string; // pretty number shown to the visitor
+  href: string; // tel: link
 }
 
 interface TechItem {
@@ -431,14 +440,36 @@ interface OrbProps {
 }
 
 // ── Data ───────────────────────────────────────────────────
+// Pre-filled WhatsApp greeting so visitors start the chat with one tap.
+const WHATSAPP_MESSAGE = encodeURIComponent(
+  "Hi Olaoluwa, I saw your portfolio and I'd love to connect."
+);
+
 const FOOTER_LINKS: FooterLink[] = [
   { label: "Email", href: "mailto:olaoluwayusuf121@gmail.com", icon: FiMail },
+  {
+    label: "WhatsApp",
+    href: `https://wa.me/2348112731701?text=${WHATSAPP_MESSAGE}`,
+    icon: FaWhatsapp,
+    brand: "#25D366",
+  },
+  {
+    label: "X",
+    href: "https://x.com/OlaoluwaYusuf1",
+    icon: FaXTwitter,
+  },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/olaoluwa-yusuf-00387a2bb/",
     icon: FiLinkedin,
   },
   { label: "GitHub", href: "https://github.com/Horlaolu4real", icon: FiGithub },
+];
+
+// Two lines — visitors can call whichever network they're on.
+const PHONE_NUMBERS: PhoneNumber[] = [
+  { label: "Glo", display: "+234 811 273 1701", href: "tel:+2348112731701" },
+  { label: "Airtel", display: "+234 802 940 8718", href: "tel:+2348029408718" },
 ];
 
 const TECH_STACK: TechItem[] = [
@@ -634,6 +665,11 @@ const Footer = () => {
               {FOOTER_LINKS.map((link, i) => {
                 const Icon = link.icon;
                 const isHovered = hoveredIndex === i;
+                const hoverColor = link.brand ?? "var(--accent)";
+                // Brand-tinted background/border on hover (WhatsApp green, etc.)
+                const tint = link.brand
+                  ? { bg: `${link.brand}14`, border: `${link.brand}4d` }
+                  : { bg: "rgba(229,99,55,0.08)", border: "rgba(229,99,55,0.3)" };
                 return (
                   <motion.a
                     key={i}
@@ -642,11 +678,9 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 no-underline"
                     style={{
-                      backgroundColor: isHovered
-                        ? "rgba(229,99,55,0.08)"
-                        : "rgba(255,255,255,0.04)",
+                      backgroundColor: isHovered ? tint.bg : "rgba(255,255,255,0.04)",
                       border: isHovered
-                        ? "1px solid rgba(229,99,55,0.3)"
+                        ? `1px solid ${tint.border}`
                         : "1px solid rgba(255,255,255,0.07)",
                       textDecoration: "none",
                     }}
@@ -662,9 +696,7 @@ const Footer = () => {
                       <Icon
                         className="w-5 h-5 transition-colors duration-300"
                         style={{
-                          color: isHovered
-                            ? "var(--accent)"
-                            : "rgba(255,255,255,0.5)",
+                          color: isHovered ? hoverColor : "rgba(255,255,255,0.5)",
                         }}
                       />
                     </motion.div>
@@ -679,6 +711,47 @@ const Footer = () => {
                   </motion.a>
                 );
               })}
+
+              {/* Call me — Glo / Airtel lines */}
+              <div className="pt-2">
+                <p
+                  className="font-[Karla] text-xs tracking-[0.15em] mb-2"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
+                  CALL ME
+                </p>
+                <div className="space-y-2">
+                  {PHONE_NUMBERS.map((phone, i) => (
+                    <motion.a
+                      key={i}
+                      href={phone.href}
+                      whileHover={{ x: 5 }}
+                      className="flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors duration-300 no-underline group"
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.04)",
+                        border: "1px solid rgba(255,255,255,0.07)",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <FiPhone
+                        className="w-4 h-4 shrink-0 transition-colors duration-300 group-hover:text-[color:var(--accent)]"
+                        style={{ color: "rgba(255,255,255,0.5)" }}
+                      />
+                      <span className="flex flex-col leading-tight">
+                        <span className="font-[Karla] text-sm text-white/75">
+                          {phone.display}
+                        </span>
+                        <span
+                          className="font-[Karla] text-[0.65rem] tracking-wide"
+                          style={{ color: "rgba(255,255,255,0.4)" }}
+                        >
+                          {phone.label}
+                        </span>
+                      </span>
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
 
@@ -695,8 +768,8 @@ const Footer = () => {
 
             {/* Resume download — was cyan/purple/pink gradient, now brand orange */}
             <motion.a
-              href="/OLAOLUWA YUSUF FRONT.pdf"
-              download
+              href="/resume.pdf"
+              download="Olaoluwa-Yusuf-Resume.pdf"
               className="group relative px-8 py-4 rounded-xl overflow-hidden no-underline"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
