@@ -62,7 +62,7 @@
 //   ];
 
 //   const techStack = [
-//     { icon: SiNextdotjs, label: "Next.js", color: "text-white" },
+//     { icon: SiNextdotjs, label: "Next.js", color: "text-[color:var(--text-primary)]" },
 //     { icon: SiReact, label: "React", color: "text-cyan-400" },
 //     { icon: SiTailwindcss, label: "Tailwind", color: "text-blue-400" },
 //   ];
@@ -166,7 +166,7 @@
 //               initial={{ opacity: 0 }}
 //               animate={{ opacity: 1 }}
 //               transition={{ delay: 0.3 }}
-//               className="text-gray-400 font-[Poppins] text-sm md:text-base text-center lg:text-left mb-6 max-w-sm"
+//               className="text-gray-400 font-karla text-sm md:text-base text-center lg:text-left mb-6 max-w-sm"
 //             >
 //               Crafting exceptional digital experiences with modern web
 //               technologies and innovative design.
@@ -183,7 +183,7 @@
 //                 <motion.div
 //                   key={index}
 //                   whileHover={{ scale: 1.1, y: -2 }}
-//                   className="flex items-center gap-2 px-3 py-2 bg-white/5 rounded-lg backdrop-blur-sm"
+//                   className="flex items-center gap-2 px-3 py-2 bg-[color:var(--bg-subtle)] rounded-lg backdrop-blur-sm"
 //                 >
 //                   <tech.icon className={`w-5 h-5 ${tech.color}`} />
 //                   <span className="text-xs text-gray-300 font-medium">
@@ -199,7 +199,7 @@
 //             transition={{ delay: 0.3 }}
 //             className="flex flex-col items-center lg:items-center"
 //           >
-//             <h3 className="font-[Poppins] font-semibold text-white text-lg mb-6 tracking-wider">
+//             <h3 className="font-karla font-semibold text-[color:var(--text-primary)] text-lg mb-6 tracking-wider">
 //               CONNECT WITH ME
 //             </h3>
 
@@ -212,7 +212,7 @@
 //                     href={link.href}
 //                     target={link.href.startsWith("http") ? "_blank" : undefined}
 //                     rel="noopener noreferrer"
-//                     className={`group relative flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 no-underline`}
+//                     className={`group relative flex items-center gap-3 px-4 py-3 rounded-xl bg-[color:var(--bg-subtle)] backdrop-blur-sm hover:bg-[color:var(--bg-subtle-2)] transition-all duration-300 no-underline`}
 //                     onMouseEnter={() => setHoveredIndex(index)}
 //                     onMouseLeave={() => setHoveredIndex(null)}
 //                     whileHover={{ x: 5 }}
@@ -223,9 +223,9 @@
 //                       animate={{ rotate: hoveredIndex === index ? 360 : 0 }}
 //                       transition={{ duration: 0.5 }}
 //                     >
-//                       <Icon className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors" />
+//                       <Icon className="w-5 h-5 text-gray-300 group-hover:text-[color:var(--text-primary)] transition-colors" />
 //                     </motion.div>
-//                     <span className="font-[Poppins] text-gray-300 group-hover:text-white transition-colors">
+//                     <span className="font-karla text-gray-300 group-hover:text-[color:var(--text-primary)] transition-colors">
 //                       {link.label}
 //                     </span>
 
@@ -259,7 +259,7 @@
 //             transition={{ delay: 0.4 }}
 //             className="flex flex-col items-center lg:items-end"
 //           >
-//             <h3 className="font-[Poppins] font-semibold text-white text-lg mb-6 tracking-wider">
+//             <h3 className="font-karla font-semibold text-[color:var(--text-primary)] text-lg mb-6 tracking-wider">
 //               LET WORK TOGETHER
 //             </h3>
 
@@ -299,9 +299,9 @@
 //                     ease: "easeInOut",
 //                   }}
 //                 >
-//                   <FiDownload className="w-5 h-5 text-white" />
+//                   <FiDownload className="w-5 h-5 text-[color:var(--text-primary)]" />
 //                 </motion.div>
-//                 <span className="font-[Poppins] font-semibold text-white text-base">
+//                 <span className="font-karla font-semibold text-[color:var(--text-primary)] text-base">
 //                   Download Resume
 //                 </span>
 //               </div>
@@ -311,7 +311,7 @@
 //               initial={{ opacity: 0 }}
 //               animate={{ opacity: 1 }}
 //               transition={{ delay: 0.5 }}
-//               className="mt-8 text-gray-400 font-[Poppins] text-sm text-center lg:text-right"
+//               className="mt-8 text-gray-400 font-karla text-sm text-center lg:text-right"
 //             >
 //               Available for freelance projects and full-time opportunities
 //             </motion.p>
@@ -332,14 +332,14 @@
 //           transition={{ delay: 0.7 }}
 //           className="flex flex-col md:flex-row justify-between items-center gap-6"
 //         >
-//           <div className="flex items-center gap-2 text-gray-300 font-[Poppins] text-sm">
+//           <div className="flex items-center gap-2 text-gray-300 font-karla text-sm">
 //             <span>Lagos, Ng</span>
 //             <span>•</span>
 //             <span className="font-mono">{timeString}</span>
 //           </div>
 //           <a
 //             href="mailto:olaoluwayusuf121@gmail.com"
-//             className="font-[MAINLUX-Bold] text-2xl text-gray-200 hover:text-white transition-colors"
+//             className="font-syne text-2xl text-gray-200 hover:text-[color:var(--text-primary)] transition-colors"
 //             style={{ textDecoration: "none" }}
 //           >
 //             olaoluwayusuf121@gmail.com
@@ -353,11 +353,11 @@
 //                   href={link.href}
 //                   target={link.href.startsWith("http") ? "_blank" : undefined}
 //                   rel="noopener noreferrer"
-//                   className="px-4 py-2 rounded-xl border border-white/20 text-gray-200 hover:bg-white/10 transition-colors flex items-center gap-2"
+//                   className="px-4 py-2 rounded-xl border border-[color:var(--border-strong)] text-gray-200 hover:bg-[color:var(--bg-subtle-2)] transition-colors flex items-center gap-2"
 //                   style={{ textDecoration: "none" }}
 //                 >
 //                   <Icon className="w-4 h-4" />
-//                   <span className="text-xs font-[Poppins] tracking-wide">
+//                   <span className="text-xs font-karla tracking-wide">
 //                     {link.label.toUpperCase()}
 //                   </span>
 //                 </a>
@@ -369,7 +369,7 @@
 //       {/* Scroll to top button */}
 //       <motion.button
 //         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-//         className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-sm border border-white/10 flex items-center justify-center z-50"
+//         className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-sm border border-[color:var(--border-strong)] flex items-center justify-center z-50"
 //         whileHover={{ scale: 1.1 }}
 //         whileTap={{ scale: 0.9 }}
 //         initial={{ opacity: 0, y: 20 }}
@@ -377,7 +377,7 @@
 //         transition={{ delay: 1 }}
 //       >
 //         <motion.svg
-//           className="w-6 h-6 text-white"
+//           className="w-6 h-6 text-[color:var(--text-primary)]"
 //           fill="none"
 //           stroke="currentColor"
 //           viewBox="0 0 24 24"
@@ -473,7 +473,7 @@ const PHONE_NUMBERS: PhoneNumber[] = [
 ];
 
 const TECH_STACK: TechItem[] = [
-  { icon: SiNextdotjs, label: "Next.js", color: "text-white" },
+  { icon: SiNextdotjs, label: "Next.js", color: "text-[color:var(--text-primary)]" },
   { icon: SiReact, label: "React", color: "text-[#61DAFB]" },
   { icon: SiTailwindcss, label: "Tailwind", color: "text-[#06B6D4]" },
 ];
@@ -552,8 +552,8 @@ const Footer = () => {
       style={{
         // was: gray-950 → black → gray-900  |  now: your canvas colours
         background:
-          "linear-gradient(135deg, #0d0d0d 0%, #0a0a0a 50%, #111111 100%)",
-        borderTop: "1px solid rgba(255,255,255,0.07)",
+          "linear-gradient(135deg, var(--bg-page) 0%, var(--bg-card) 50%, var(--bg-raised) 100%)",
+        borderTop: "1px solid var(--border-subtle)",
       }}
     >
       {/* Floating orbs */}
@@ -614,7 +614,7 @@ const Footer = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-sm md:text-base text-center md:text-left lg:text-left mb-6 max-w-xs md:max-w-sm font-[Karla]"
+              className="text-sm md:text-base text-center md:text-left lg:text-left mb-6 max-w-xs md:max-w-sm font-karla"
               style={{ color: "var(--text-secondary)" }}
             >
               Crafting exceptional digital experiences with modern web
@@ -634,12 +634,12 @@ const Footer = () => {
                   whileHover={{ scale: 1.1, y: -2 }}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg"
                   style={{
-                    backgroundColor: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    backgroundColor: "var(--bg-subtle)",
+                    border: "1px solid var(--border-subtle)",
                   }}
                 >
                   <tech.icon className={`w-4 h-4 ${tech.color}`} />
-                  <span className="text-xs text-white/60 font-[Karla] font-medium">
+                  <span className="text-xs text-[color:var(--text-secondary)] font-karla font-medium">
                     {tech.label}
                   </span>
                 </motion.div>
@@ -655,7 +655,7 @@ const Footer = () => {
             className="flex flex-col items-center md:items-start lg:items-center"
           >
             <h3
-              className="font-[Karla] font-semibold text-white text-base mb-6 tracking-[0.15em]"
+              className="font-karla font-semibold text-[color:var(--text-primary)] text-base mb-6 tracking-[0.15em]"
               style={{ color: "var(--text-primary)" }}
             >
               CONNECT WITH ME
@@ -678,10 +678,10 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 no-underline"
                     style={{
-                      backgroundColor: isHovered ? tint.bg : "rgba(255,255,255,0.04)",
+                      backgroundColor: isHovered ? tint.bg : "var(--bg-subtle)",
                       border: isHovered
                         ? `1px solid ${tint.border}`
-                        : "1px solid rgba(255,255,255,0.07)",
+                        : "1px solid var(--border-subtle)",
                       textDecoration: "none",
                     }}
                     onMouseEnter={() => setHoveredIndex(i)}
@@ -696,14 +696,14 @@ const Footer = () => {
                       <Icon
                         className="w-5 h-5 transition-colors duration-300"
                         style={{
-                          color: isHovered ? hoverColor : "rgba(255,255,255,0.5)",
+                          color: isHovered ? hoverColor : "var(--text-secondary)",
                         }}
                       />
                     </motion.div>
                     <span
-                      className="font-[Karla] text-sm transition-colors duration-300"
+                      className="font-karla text-sm transition-colors duration-300"
                       style={{
-                        color: isHovered ? "#fff" : "rgba(255,255,255,0.55)",
+                        color: isHovered ? "var(--text-primary)" : "var(--text-secondary)",
                       }}
                     >
                       {link.label}
@@ -715,8 +715,8 @@ const Footer = () => {
               {/* Call me — Glo / Airtel lines */}
               <div className="pt-2">
                 <p
-                  className="font-[Karla] text-xs tracking-[0.15em] mb-2"
-                  style={{ color: "rgba(255,255,255,0.4)" }}
+                  className="font-karla text-xs tracking-[0.15em] mb-2"
+                  style={{ color: "var(--text-tertiary)" }}
                 >
                   CALL ME
                 </p>
@@ -728,22 +728,22 @@ const Footer = () => {
                       whileHover={{ x: 5 }}
                       className="flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors duration-300 no-underline group"
                       style={{
-                        backgroundColor: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.07)",
+                        backgroundColor: "var(--bg-subtle)",
+                        border: "1px solid var(--border-subtle)",
                         textDecoration: "none",
                       }}
                     >
                       <FiPhone
                         className="w-4 h-4 shrink-0 transition-colors duration-300 group-hover:text-[color:var(--accent)]"
-                        style={{ color: "rgba(255,255,255,0.5)" }}
+                        style={{ color: "var(--text-secondary)" }}
                       />
                       <span className="flex flex-col leading-tight">
-                        <span className="font-[Karla] text-sm text-white/75">
+                        <span className="font-karla text-sm text-[color:var(--text-secondary)]">
                           {phone.display}
                         </span>
                         <span
-                          className="font-[Karla] text-[0.65rem] tracking-wide"
-                          style={{ color: "rgba(255,255,255,0.4)" }}
+                          className="font-karla text-[0.65rem] tracking-wide"
+                          style={{ color: "var(--text-tertiary)" }}
                         >
                           {phone.label}
                         </span>
@@ -762,13 +762,13 @@ const Footer = () => {
             transition={{ delay: 0.4 }}
             className="flex flex-col items-center md:col-span-2 md:items-center lg:col-span-1 lg:items-end"
           >
-            <h3 className="font-[Karla] font-semibold text-white text-base mb-6 tracking-[0.15em]">
+            <h3 className="font-karla font-semibold text-[color:var(--text-primary)] text-base mb-6 tracking-[0.15em]">
               LET&apos;S WORK TOGETHER
             </h3>
 
             {/* Resume download — was cyan/purple/pink gradient, now brand orange */}
             <motion.a
-              href="/resume.pdf"
+              href="/Olaoluwa-Yusuf-Fullstack-Developer.pdf"
               download="Olaoluwa-Yusuf-Resume.pdf"
               className="group relative px-8 py-4 rounded-xl overflow-hidden no-underline"
               whileHover={{ scale: 1.05 }}
@@ -797,9 +797,9 @@ const Footer = () => {
                     ease: "easeInOut",
                   }}
                 >
-                  <FiDownload className="w-5 h-5 text-black" />
+                  <FiDownload className="w-5 h-5 text-[color:var(--on-accent)]" />
                 </motion.div>
-                <span className="font-[Karla] font-bold text-black text-sm tracking-wide">
+                <span className="font-karla font-bold text-[color:var(--on-accent)] text-sm tracking-wide">
                   Download Resume
                 </span>
               </div>
@@ -809,7 +809,7 @@ const Footer = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="mt-8 text-sm text-center md:max-w-xl lg:max-w-none lg:text-right font-[Karla]"
+              className="mt-8 text-sm text-center md:max-w-xl lg:max-w-none lg:text-right font-karla"
               style={{ color: "var(--text-secondary)" }}
             >
               Available for freelance projects and full-time opportunities
@@ -838,7 +838,7 @@ const Footer = () => {
         >
           {/* Location + live clock */}
           <div
-            className="flex items-center gap-2 text-sm font-[Karla]"
+            className="flex items-center gap-2 text-sm font-karla"
             style={{ color: "var(--text-secondary)" }}
           >
             <span>Lagos, NG</span>
@@ -849,15 +849,15 @@ const Footer = () => {
           {/* Email — large, centred */}
           <a
             href="mailto:olaoluwayusuf121@gmail.com"
-            className="font-[MAINLUX-Bold] text-xl lg:text-2xl transition-colors duration-300 text-center break-all md:break-normal"
-            style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}
+            className="font-syne text-xl lg:text-2xl transition-colors duration-300 text-center break-all md:break-normal"
+            style={{ color: "var(--text-secondary)", textDecoration: "none" }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.color =
                 "var(--accent)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.color =
-                "rgba(255,255,255,0.6)";
+                "var(--text-secondary)";
             }}
           >
             olaoluwayusuf121@gmail.com
@@ -879,20 +879,20 @@ const Footer = () => {
                   }}
                   className="flex items-center gap-2 px-3 py-2 rounded-xl transition-colors duration-300"
                   style={{
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    color: "rgba(255,255,255,0.5)",
+                    border: "1px solid var(--border-strong)",
+                    color: "var(--text-secondary)",
                     textDecoration: "none",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-primary)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.color =
-                      "rgba(255,255,255,0.5)";
+                      "var(--text-secondary)";
                   }}
                 >
                   <Icon className="w-4 h-4" />
-                  <span className="text-xs font-[Karla] tracking-widest">
+                  <span className="text-xs font-karla tracking-widest">
                     {link.label.toUpperCase()}
                   </span>
                 </motion.a>

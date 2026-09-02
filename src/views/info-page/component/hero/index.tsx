@@ -57,7 +57,7 @@ export default function Hero() {
           className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)",
+              "radial-gradient(circle, var(--text-primary) 1px, transparent 1px)",
             backgroundSize: "40px 40px",
           }}
         />
@@ -92,8 +92,8 @@ export default function Hero() {
           {/* Main heading */}
           <motion.h1
             variants={fadeUp}
-            className="text-[clamp(3.2rem,8vw,6.5rem)] font-extrabold text-white mb-5"
-            style={{ fontFamily: "Syne, sans-serif" }}
+            className="text-[clamp(3.2rem,8vw,6.5rem)] font-extrabold text-[color:var(--text-primary)] mb-5"
+            style={{ fontFamily: "var(--font-syne), sans-serif" }}
           >
             Software
             <br />
@@ -106,7 +106,7 @@ export default function Hero() {
             className="text-lg md:text-xl leading-relaxed max-w-xl mb-10"
             style={{
               color: "var(--text-secondary)",
-              fontFamily: "Karla, sans-serif",
+              fontFamily: "var(--font-karla), sans-serif",
             }}
           >
             I build fast, accessible, and visually intentional web experiences.
@@ -119,11 +119,11 @@ export default function Hero() {
               href="#projects"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="px-8 py-3.5 rounded-full font-semibold text-sm tracking-wide text-black transition-colors duration-300"
+              className="px-8 py-3.5 rounded-full font-semibold text-sm tracking-wide text-[color:var(--on-accent)] transition-colors duration-300"
               style={{ backgroundColor: "var(--accent)" }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-                  "#c9542c";
+                  "var(--accent-hover)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.backgroundColor =
@@ -139,18 +139,18 @@ export default function Hero() {
               whileTap={{ scale: 0.96 }}
               className="px-8 py-3.5 rounded-full font-medium text-sm tracking-wide transition-all duration-300"
               style={{
-                border: "1px solid rgba(255,255,255,0.15)",
-                color: "rgba(255,255,255,0.75)",
+                border: "1px solid var(--border-strong)",
+                color: "var(--text-secondary)",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
-                el.style.color = "#fff";
-                el.style.borderColor = "rgba(255,255,255,0.35)";
+                el.style.color = "var(--text-primary)";
+                el.style.borderColor = "var(--text-tertiary)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
-                el.style.color = "rgba(255,255,255,0.75)";
-                el.style.borderColor = "rgba(255,255,255,0.15)";
+                el.style.color = "var(--text-secondary)";
+                el.style.borderColor = "var(--border-strong)";
               }}
             >
               Get in Touch →
@@ -164,8 +164,8 @@ export default function Hero() {
                 key={tech}
                 className="px-3 py-1 rounded-md text-xs font-mono"
                 style={{
-                  backgroundColor: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  backgroundColor: "var(--bg-subtle)",
+                  border: "1px solid var(--border-subtle)",
                   color: "var(--text-tertiary)",
                 }}
               >

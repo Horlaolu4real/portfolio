@@ -12,23 +12,23 @@
 //         initial={{ opacity: 0, y: -100 }}
 //         animate={{ opacity: 1, y: 0 }}
 //         transition={{ duration: 0.6, type: "spring" }}
-//         className="text-[#0b1020] text-center font-[MAINLUX-Bold] font-light text-[32px] lg:text-[40px]"
+//         className="text-[#0b1020] text-center font-syne font-light text-[32px] lg:text-[40px]"
 //       >
 //         About Me
 //       </motion.h2>
 
 //       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full">
 //         <div className="flex flex-col gap-5">
-//           <h4 className="font-[MAINLUX-Bold] font-light text-[26px] lg:text-[32px] text-[#0b1020]">
+//           <h4 className="font-syne font-light text-[26px] lg:text-[32px] text-[#0b1020]">
 //             Software Engineer focused on Front-end Development
 //           </h4>
-//           <p className="font-[Poppins] text-[16px] lg:text-[18px] leading-[1.7] text-[#222]">
+//           <p className="font-karla text-[16px] lg:text-[18px] leading-[1.7] text-[#222]">
 //             I turn creative ideas into responsive, accessible, and performant
 //             web experiences. Comfortable across the stack, I build clean
 //             interfaces, integrate APIs, and ship scalable features that users
 //             love.
 //           </p>
-//           <p className="font-[Poppins] text-[16px] lg:text-[18px] leading-[1.7] text-[#222]">
+//           <p className="font-karla text-[16px] lg:text-[18px] leading-[1.7] text-[#222]">
 //             Whether collaborating or building solo, I focus on clarity, speed,
 //             and maintainability—delivering reliable software that solves real
 //             problems.
@@ -106,8 +106,8 @@ const About = () => {
         >
           <span className="section-label block mb-3">Who I Am</span>
           <h2
-            className="text-[36px] md:text-[48px] font-bold text-white"
-            style={{ fontFamily: "Syne, sans-serif", letterSpacing: "-0.02em" }}
+            className="text-[36px] md:text-[48px] font-bold text-[color:var(--text-primary)]"
+            style={{ fontFamily: "var(--font-syne), sans-serif", letterSpacing: "-0.02em" }}
           >
             About Me
           </h2>
@@ -125,7 +125,7 @@ const About = () => {
           >
             <motion.h3
               variants={fadeUp}
-              className="font-[MAINLUX-Bold] text-[22px] lg:text-[28px] leading-snug"
+              className="font-syne text-[22px] lg:text-[28px] leading-snug"
               style={{ color: "var(--text-primary)" }}
             >
               Software Engineer focused on{" "}
@@ -136,7 +136,7 @@ const About = () => {
 
             <motion.p
               variants={fadeUp}
-              className="text-[16px] lg:text-[17px] leading-[1.8] font-[Karla]"
+              className="text-[16px] lg:text-[17px] leading-[1.8] font-karla"
               style={{ color: "var(--text-secondary)" }}
             >
               I turn creative ideas into responsive, accessible, and performant
@@ -147,7 +147,7 @@ const About = () => {
 
             <motion.p
               variants={fadeUp}
-              className="text-[16px] lg:text-[17px] leading-[1.8] font-[Karla]"
+              className="text-[16px] lg:text-[17px] leading-[1.8] font-karla"
               style={{ color: "var(--text-secondary)" }}
             >
               Whether collaborating or building solo, I focus on clarity, speed,
@@ -202,13 +202,13 @@ const About = () => {
                 }}
               >
                 <span
-                  className="font-[MAINLUX-Bold] text-[40px] lg:text-[48px] leading-none"
+                  className="font-syne text-[40px] lg:text-[48px] leading-none"
                   style={{ color: "var(--accent)" }}
                 >
                   {value}
                 </span>
                 <span
-                  className="text-sm font-[Karla] mt-3"
+                  className="text-sm font-karla mt-3"
                   style={{ color: "var(--text-secondary)" }}
                 >
                   {label}

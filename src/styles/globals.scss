@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 // ─────────────────────────────────────────────────
-// YOUR EXISTING font-face declarations — untouched
+// Local faces still referenced by legacy class names.
+// Syne + Karla are self-hosted through next/font (layout.tsx)
+// and exposed as --font-syne / --font-karla.
 // ─────────────────────────────────────────────────
 @font-face {
   font-family: Inter;
@@ -17,49 +19,87 @@
   font-family: Poppins;
   src: url("/assets/fonts/poppings/Poppins-Regular.ttf");
 }
-@font-face {
-  font-family: MAINLUX;
-  src: url("/assets/fonts/mainlux/FontsFree-Net-Mainlux-Bold.ttf");
-}
-@font-face {
-  font-family: MAINLUX-Bold;
-  src: url("/assets/fonts/mainlux/MainluxLight-DOAJx.otf");
-}
-
-// ─────────────────────────────────────────────────
-// GOOGLE FONT — Syne (new display font for headings)
-// Add this to your <head> in layout.tsx instead if preferred:
-// <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet" />
-// ─────────────────────────────────────────────────
-@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap");
-
-// ─────────────────────────────────────────────────
-// DESIGN TOKENS
-// These replace the dark/light theme vars you were
-// not using. One clean set, dark portfolio style.
-// ─────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// THEME TOKENS
+// :root is LIGHT (the default). [data-theme="dark"] restores the
+// original dark palette. Both define the same names, so every
+// component reads one set of variables and never branches.
+// ─────────────────────────────────────────────────────────────
 :root {
-  // Canvas
+  color-scheme: light;
+
+  // Canvas — warm off-white so the orange accent sits naturally.
+  --bg-page: #fbfaf9;
+  --bg-card: #ffffff;
+  --bg-raised: #f4f2f0;
+
+  // Low-alpha fills used for chips, pills and hover washes.
+  --bg-subtle: rgba(20, 17, 15, 0.035);
+  --bg-subtle-2: rgba(20, 17, 15, 0.06);
+
+  // Text
+  --text-primary: #14110f;
+  --text-secondary: rgba(20, 17, 15, 0.62);
+  --text-tertiary: rgba(20, 17, 15, 0.5);
+
+  // Borders
+  --border-subtle: rgba(20, 17, 15, 0.1);
+  --border-strong: rgba(20, 17, 15, 0.18);
+
+  // Accent. --accent is the brand hue; --accent-ink is the step used
+  // for accent-coloured *text*, which needs more contrast on light.
+  --accent: #e56337;
+  --accent-ink: #c2410c;
+  --accent-muted: rgba(229, 99, 55, 0.1);
+  --accent-glow: rgba(229, 99, 55, 0.18);
+  --accent-border: rgba(229, 99, 55, 0.35);
+  --accent-hover: #a5350a;
+
+  // Foreground for text/icons sitting on top of an --accent fill.
+  --on-accent: #ffffff;
+  // Monochrome logos (Next.js, Express) that must flip with the theme.
+  --icon-mono: #14110f;
+  // Translucent page colour for sticky/overlay surfaces.
+  --overlay: rgba(251, 250, 249, 0.96);
+
+  --shadow-card: 0 1px 2px rgba(20, 17, 15, 0.05);
+  --shadow-lift: 0 18px 44px rgba(20, 17, 15, 0.1);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
   --bg-page: #0d0d0d;
   --bg-card: #141414;
   --bg-raised: #1a1a1a;
 
-  // Accent — your own brand orange from primary-400
-  --accent: #e56337;
-  --accent-muted: rgba(229, 99, 55, 0.12);
-  --accent-glow: rgba(229, 99, 55, 0.25);
-  --accent-border: rgba(229, 99, 55, 0.3);
+  --bg-subtle: rgba(255, 255, 255, 0.04);
+  --bg-subtle-2: rgba(255, 255, 255, 0.08);
 
-  // Text
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.55);
   --text-tertiary: rgba(255, 255, 255, 0.25);
 
-  // Borders
   --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-accent: rgba(229, 99, 55, 0.3);
+  --border-strong: rgba(255, 255, 255, 0.15);
 
-  // Kept from your file
+  --accent: #e56337;
+  --accent-ink: #e56337;
+  --accent-muted: rgba(229, 99, 55, 0.12);
+  --accent-glow: rgba(229, 99, 55, 0.25);
+  --accent-border: rgba(229, 99, 55, 0.3);
+  --accent-hover: #c9542c;
+
+  --on-accent: #000000;
+  --icon-mono: #ffffff;
+  --overlay: rgba(13, 13, 13, 0.96);
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-lift: 0 20px 60px rgba(229, 99, 55, 0.12);
+}
+
+:root {
+  // Brand ramp and neutrals kept from the original file.
   --primary-10: #fcede9;
   --primary-50: #f1ac95;
   --primary-100: #f49778;
@@ -82,9 +122,19 @@
   --neutral-700: #404040;
   --neutral-800: #262626;
   --neutral-900: #181817;
+}
 
-  --lato: "Lato";
-  --karla: "Karla";
+// Theme swap should feel like a change of light, not a page reload.
+// The toggle sets .theme-anim briefly; everything else is instant.
+.theme-anim,
+.theme-anim *,
+.theme-anim *::before,
+.theme-anim *::after {
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease,
+    fill 0.28s ease !important;
 }
 
 // ─────────────────────────────────────────────────
@@ -115,7 +165,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Karla", sans-serif; // your existing body font
+  font-family: var(--font-karla), sans-serif;
 }
 
 a {
@@ -138,14 +188,14 @@ button {
 // TYPOGRAPHY — your existing scale, kept intact
 // ─────────────────────────────────────────────────
 h1 {
-  font-family: "Syne", sans-serif; // new: display font for hero only
+  font-family: var(--font-syne), sans-serif;
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.03em;
 }
 
 h2 {
-  font-family: "Syne", sans-serif;
+  font-family: var(--font-syne), sans-serif;
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -155,8 +205,8 @@ h3 {
   font-size: 40px;
   line-height: 56.11px;
   font-weight: 700;
-  font-family: "Karla", sans-serif;
-  letter-spacing: 0.04em;
+  font-family: var(--font-karla), sans-serif;
+  letter-spacing: -0.01em;
 
   @media (max-width: 768px) {
     font-size: 24px;
@@ -191,8 +241,19 @@ h5 {
 
 p,
 span {
-  font-family: "Karla", sans-serif;
+  font-family: var(--font-karla), sans-serif;
   font-weight: 400;
+}
+
+// A span inside a heading is part of that heading — it must keep the
+// display face and weight, not fall back to the body font above.
+h1 span,
+h2 span,
+h3 span,
+h4 span {
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
 }
 
 // ─────────────────────────────────────────────────
@@ -200,7 +261,7 @@ span {
 // ─────────────────────────────────────────────────
 ::selection {
   background-color: var(--accent);
-  color: #000;
+  color: var(--on-accent);
 }
 
 ::-webkit-scrollbar {
@@ -217,8 +278,9 @@ span {
 // ─────────────────────────────────────────────────
 // YOUR EXISTING UTILITY CLASSES — untouched
 // ─────────────────────────────────────────────────
+// Kept as an alias: former MAINLUX usages now render in Syne.
 .mainlux {
-  font-family: MAINLUX;
+  font-family: var(--font-syne), sans-serif;
 }
 
 .page_container {
@@ -231,7 +293,7 @@ span {
 // NEW COMPONENT UTILITIES
 // ─────────────────────────────────────────────────
 .section-label {
-  font-family: "Karla", sans-serif;
+  font-family: var(--font-karla), sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.2em;

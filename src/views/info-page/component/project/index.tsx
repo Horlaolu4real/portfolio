@@ -1,14 +1,11 @@
 "use client";
-import { useState, useCallback } from "react";
-import { motion, Variants, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { motion, Variants } from "framer-motion";
 
 interface Project {
   title: string;
   url: string;
   techs: string[];
   number: string;
-  screenshot: string;
 }
 
 const projects: Project[] = [
@@ -17,35 +14,24 @@ const projects: Project[] = [
     url: "https://www.clubarant.com/",
     techs: ["Next.js", "Tailwind", "Framer Motion"],
     number: "01",
-    screenshot: "/projects/clubarant.png",
   },
   {
     title: "Rogue Dev",
     url: "https://www.roguedevtech.com/",
     techs: ["React", "SCSS", "Animations"],
     number: "02",
-    screenshot: "/projects/roguedev.png",
   },
   {
     title: "Bricklage",
     url: "https://www.bricklage.com/",
     techs: ["Next.js", "SCSS", "Deploy"],
     number: "03",
-    screenshot: "/projects/bricklage.png",
-  },
-  {
-    title: "Right Care Finder",
-    url: "https://www.rightcarefinder.co.uk/",
-    techs: ["Next.js", "SCSS", "Deploy"],
-    number: "04",
-    screenshot: "/projects/rightcare.png",
   },
   {
     title: "TBII",
     url: "https://tbii.ca/",
     techs: ["Next.js", "E-Commerce", "TypeScript"],
-    number: "05",
-    screenshot: "/projects/tbii.png",
+    number: "04",
   },
 ];
 
@@ -69,11 +55,9 @@ const headingVariants: Variants = {
 
 interface ProjectRowProps {
   project: Project;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
 }
 
-const ProjectRow = ({ project, onMouseEnter, onMouseLeave }: ProjectRowProps) => {
+const ProjectRow = ({ project }: ProjectRowProps) => {
   return (
     <motion.div
       variants={rowVariants}
@@ -81,8 +65,6 @@ const ProjectRow = ({ project, onMouseEnter, onMouseLeave }: ProjectRowProps) =>
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       className="group w-full py-8 md:py-10 cursor-pointer"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
     >
       <div className="flex items-center justify-between gap-6">
         {/* Left: number + title */}
@@ -100,10 +82,10 @@ const ProjectRow = ({ project, onMouseEnter, onMouseLeave }: ProjectRowProps) =>
           <motion.h3
             whileHover={{ x: 6 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="font-[MAINLUX-Bold] text-[36px] md:text-[60px] lg:text-[76px] leading-none truncate transition-all duration-300"
+            className="font-syne text-[36px] md:text-[60px] lg:text-[76px] leading-none truncate transition-all duration-300"
             style={{
               background:
-                "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 100%)",
+                "linear-gradient(135deg, var(--text-tertiary) 0%, var(--border-strong) 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -111,14 +93,14 @@ const ProjectRow = ({ project, onMouseEnter, onMouseLeave }: ProjectRowProps) =>
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLHeadingElement;
               el.style.background =
-                "linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)";
+                "linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%)";
               el.style.webkitBackgroundClip = "text";
               el.style.backgroundClip = "text";
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLHeadingElement;
               el.style.background =
-                "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 100%)";
+                "linear-gradient(135deg, var(--text-tertiary) 0%, var(--border-strong) 100%)";
               el.style.webkitBackgroundClip = "text";
               el.style.backgroundClip = "text";
             }}
@@ -139,7 +121,7 @@ const ProjectRow = ({ project, onMouseEnter, onMouseLeave }: ProjectRowProps) =>
             style={{
               border: "1px solid rgba(229, 99, 55, 0.35)",
               color: "var(--accent)",
-              fontFamily: "Karla, sans-serif",
+              fontFamily: "var(--font-karla), sans-serif",
               textDecoration: "none",
             }}
             onMouseEnter={(e) => {
@@ -162,8 +144,8 @@ const ProjectRow = ({ project, onMouseEnter, onMouseLeave }: ProjectRowProps) =>
                 key={tech}
                 className="px-2 py-0.5 rounded text-[11px] font-mono"
                 style={{
-                  backgroundColor: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.07)",
+                  backgroundColor: "var(--bg-subtle)",
+                  border: "1px solid var(--border-subtle)",
                   color: "var(--text-tertiary)",
                 }}
               >
@@ -178,7 +160,7 @@ const ProjectRow = ({ project, onMouseEnter, onMouseLeave }: ProjectRowProps) =>
         className="mt-8 h-px transition-all duration-500"
         style={{
           background:
-            "linear-gradient(to right, rgba(229,99,55,0.4), rgba(255,255,255,0.06), transparent)",
+            "linear-gradient(to right, rgba(229,99,55,0.4), var(--border-subtle), transparent)",
         }}
       />
     </motion.div>
@@ -186,19 +168,11 @@ const ProjectRow = ({ project, onMouseEnter, onMouseLeave }: ProjectRowProps) =>
 };
 
 const Projects = () => {
-  const [hoveredProject, setHoveredProject] = useState<Project | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    setMousePos({ x: e.clientX, y: e.clientY });
-  }, []);
-
   return (
     <section
       id="projects"
       className="relative w-full py-24 md:py-32"
       style={{ backgroundColor: "var(--bg-page)" }}
-      onMouseMove={handleMouseMove}
     >
       {/* Background glow */}
       <div
@@ -206,45 +180,6 @@ const Projects = () => {
         style={{ backgroundColor: "rgba(229,99,55,0.04)" }}
         aria-hidden
       />
-
-      {/* Floating screenshot preview — desktop only, follows cursor */}
-      <div
-        className="fixed pointer-events-none z-50 hidden md:block"
-        style={{
-          left: mousePos.x + 28,
-          top: mousePos.y - 110,
-        }}
-      >
-        <AnimatePresence mode="wait">
-          {hoveredProject && (
-            <motion.div
-              key={hoveredProject.title}
-              initial={{ opacity: 0, scale: 0.88, y: 12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.88, y: 12 }}
-              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div
-                className="w-[480px] h-[280px] rounded-xl overflow-hidden"
-                style={{
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  boxShadow:
-                    "0 24px 64px rgba(0,0,0,0.7), 0 0 0 1px rgba(229,99,55,0.12)",
-                }}
-              >
-                <Image
-                  src={hoveredProject.screenshot}
-                  alt={hoveredProject.title}
-                  width={300}
-                  height={190}
-                  className="object-cover w-full h-full"
-                  unoptimized
-                />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
 
       <div className="page_container relative">
         {/* Section header */}
@@ -257,8 +192,8 @@ const Projects = () => {
         >
           <span className="section-label block mb-3">Selected Work</span>
           <h2
-            className="text-[36px] md:text-[48px] font-bold text-white"
-            style={{ fontFamily: "Syne, sans-serif", letterSpacing: "-0.02em" }}
+            className="text-[36px] md:text-[48px] font-bold text-[color:var(--text-primary)]"
+            style={{ fontFamily: "var(--font-syne), sans-serif", letterSpacing: "-0.02em" }}
           >
             Projects
           </h2>
@@ -267,12 +202,7 @@ const Projects = () => {
         {/* Project rows */}
         <div className="w-full">
           {projects.map((project) => (
-            <ProjectRow
-              key={project.title}
-              project={project}
-              onMouseEnter={() => setHoveredProject(project)}
-              onMouseLeave={() => setHoveredProject(null)}
-            />
+            <ProjectRow key={project.title} project={project} />
           ))}
         </div>
       </div>

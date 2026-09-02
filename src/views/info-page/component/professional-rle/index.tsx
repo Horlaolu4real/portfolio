@@ -62,12 +62,12 @@ const TOOLS: Tool[] = [
   },
   {
     name: "Next.js",
-    icon: <SiNextdotjs color="#ffffff" size={44} />,
+    icon: <SiNextdotjs color="var(--icon-mono)" size={44} />,
     category: "frontend",
   },
   {
     name: "Framer Motion",
-    icon: <SiFramer color="#fff" size={44} />,
+    icon: <SiFramer color="var(--icon-mono)" size={44} />,
     category: "frontend",
   },
   // ── Backend (new) ─────────────────────────
@@ -78,7 +78,7 @@ const TOOLS: Tool[] = [
   },
   {
     name: "Express",
-    icon: <SiExpress color="#ffffff" size={44} />,
+    icon: <SiExpress color="var(--icon-mono)" size={44} />,
     category: "backend",
   },
   {
@@ -162,8 +162,8 @@ const ToolsSection = () => {
         >
           <span className="section-label block mb-3">What I Work With</span>
           <h2
-            className="text-[36px] md:text-[48px] font-bold text-white"
-            style={{ fontFamily: "Syne, sans-serif", letterSpacing: "-0.02em" }}
+            className="text-[36px] md:text-[48px] font-bold text-[color:var(--text-primary)]"
+            style={{ fontFamily: "var(--font-syne), sans-serif", letterSpacing: "-0.02em" }}
           >
             Tools & Skills
           </h2>
@@ -187,15 +187,15 @@ const ToolsSection = () => {
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => setActive(value)}
-                className="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 font-[Karla]"
+                className="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 font-karla"
                 style={{
                   backgroundColor: isActive
                     ? "var(--accent)"
-                    : "rgba(255,255,255,0.05)",
-                  color: isActive ? "#000" : "rgba(255,255,255,0.5)",
+                    : "var(--bg-subtle)",
+                  color: isActive ? "#000" : "var(--text-secondary)",
                   border: isActive
                     ? "1px solid var(--accent)"
-                    : "1px solid rgba(255,255,255,0.08)",
+                    : "1px solid var(--border-subtle)",
                 }}
               >
                 {label}
@@ -238,7 +238,7 @@ const ToolsSection = () => {
 
               {/* Name */}
               <p
-                className="text-center text-[13px] font-semibold font-[MAINLUX-Bold] tracking-wide leading-tight"
+                className="text-center text-[13px] font-semibold font-syne tracking-wide leading-tight"
                 style={{ color: "var(--text-secondary)" }}
               >
                 {tool.name}
